@@ -1,5 +1,3 @@
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
 import Sequelize from "sequelize";
 const database = require('../../../configs/database.js');
 

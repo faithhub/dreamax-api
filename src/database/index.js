@@ -10,5 +10,4 @@ const database = new Sequelize('chat-support', 'root', '', {
         idle: 10000
     }
 });
-
 module.exports = database;

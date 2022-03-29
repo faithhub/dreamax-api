@@ -3,18 +3,32 @@ const database = require('../../../configs/database.js');
 
 const TeamMember = database.define('teamMembers', {
     id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(11),
         primaryKey: true,
         autoIncrement: true,
     },
-    userId: {
-        type: Sequelize.UUIDV4,
-        defaultValue: Sequelize.UUIDV4,
+    adminType: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        default: 1,
+        Comment: "The Admin is 2, while the Customer Care is 2"
+    },
+    departmentId: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+    },
+    firstName: {
+        type: Sequelize.STRING(50),
         allowNull: false
     },
-    message: {
-        type: Array,
-        allowNull: true
+    lastName: {
+        type: Sequelize.STRING(50),
+        allowNull: false
+    },
+    status: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        Comment: "The status includes, 0 for not available/away and 1 for available"
     }
 });
 

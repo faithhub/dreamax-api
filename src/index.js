@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors"
 import v1Router from "./routes";
+import "../configs/database";
 
 const app = express();
 

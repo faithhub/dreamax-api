@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 const database = new Sequelize('chat-support', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
+    operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
@@ -10,4 +11,4 @@ const database = new Sequelize('chat-support', 'root', '', {
     }
 });
 
-export default database;
+module.exports = database;

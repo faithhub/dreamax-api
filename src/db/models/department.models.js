@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-const database = require('../../../configs/database.js');
+const database = require('../../database/index');
 
 const Department = database.define('departments', {
     id: {

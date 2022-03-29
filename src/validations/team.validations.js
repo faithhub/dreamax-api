@@ -2,7 +2,7 @@ const { check, validationResult } = require('express-validator');
 
 const validate = (method) => {
     switch (method) {
-        case 'createMessage':
+        case 'createTeam':
             {
                 return [
                     check('message', 'Message is required').not().isEmpty(),
@@ -13,4 +13,5 @@ const validate = (method) => {
     }
 }
 
+//Export default modules
 export default validate;

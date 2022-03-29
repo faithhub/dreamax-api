@@ -3,7 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors"
 import v1Router from "./routes";
-import "./database/index";
+// import "./database/index";
 
 const app = express();
 
@@ -14,9 +14,9 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// app.use('/api/v1', (req, res, next) => {
-//     res.status(200).json({ status: "success", message: "Welcome to Dreamax API V1" })
-// });
+app.use('/api/v1', (req, res, next) => {
+    res.status(200).json({ status: "success", message: "Welcome to Dreamax API V1" })
+});
 
 app.use("api/v1", v1Router);
 

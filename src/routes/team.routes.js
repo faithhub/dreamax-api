@@ -1,15 +1,15 @@
 import { Router } from "express";
+import teamController from "../controllers/team.controllers"
+import TeamValidation from "../validations/team.validations"
 
 const router = Router();
-const module = "support";
+const module = "team";
+const TeamController = new teamController()
 
-router.get('/get', function (req, res, next) {
-    res.status(200).json({ status: "success" })
-})
-
-router.get('/get2', function (req, res, next) {
-    res.status(200).json({ status: "success" })
-})
-
+router.post('/createNewTeamMember', TeamValidation('createTeamMember'), TeamController.createNewTeamMember);
+router.get('/fetchAllTeamMembers', TeamController.fetchAllTeamMembers);
+router.get('/fetchSingleTeamMember/:id', TeamController.fetchSingleTeamMember);
+router.put('/editTeamMember/:id', TeamValidation('createTeamMember'), TeamController.editTeamMember);
+router.delete('/deleteSingleTeamMember/:id', TeamController.deleteSingleTeamMember);
 
 export { module, router };

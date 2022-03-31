@@ -1,9 +1,10 @@
 import { Router } from "express";
-import DepartmentController from "../controllers/department.controller"
+import departmentController from "../controllers/department.controller"
 import DepartmentValidation from "../validations/department.validations"
 
 const router = Router();
 const module = "department";
+const DepartmentController = new departmentController();
 
 router.post('/createDepartment', DepartmentValidation('createDepartment'), DepartmentController.createDepartment);
 router.get('/fetchAllDepartments', DepartmentController.fetchAllDepartments);

@@ -1,7 +1,11 @@
 const { check, validationResult } = require('express-validator');
 
+
+class Department {
+    constructor(){
+
 // Create a new Department
-exports.createDepartment = (req, res, next) => {
+this.createDepartment = (req, res, next) => {
     const errors = validationResult(req);
     try {
         if (!errors.isEmpty()) {
@@ -22,7 +26,7 @@ exports.createDepartment = (req, res, next) => {
 }
 
 // Fetch all Departments
-exports.fetchAllDepartments = async function (req, res, next) {
+this.fetchAllDepartments = async function (req, res, next) {
     try {
         var allDepartments = [];
         res.status(200).json({
@@ -37,7 +41,7 @@ exports.fetchAllDepartments = async function (req, res, next) {
 };
 
 //Fetch Single Department
-exports.fetchSingleDepartment = async function (req, res, next) {
+this.fetchSingleDepartment = async function (req, res, next) {
     try {
         var departmentId = req.params.id
         res.status(200).json({
@@ -52,7 +56,7 @@ exports.fetchSingleDepartment = async function (req, res, next) {
 };
 
 //Edit Department
-exports.editDepartment = async function (req, res, next) {
+this.editDepartment = async function (req, res, next) {
     const errors = validationResult(req);
     try {
         if (!errors.isEmpty()) {
@@ -74,7 +78,7 @@ exports.editDepartment = async function (req, res, next) {
 };
 
 //Delete Department
-exports.deleteDepartment = async function (req, res, next) {
+this.deleteDepartment = async function (req, res, next) {
     try {
         var teamMemberId = req.params.id
         res.status(200).json({
@@ -87,3 +91,7 @@ exports.deleteDepartment = async function (req, res, next) {
         })
     }
 };
+    }
+}
+
+module.exports = Department;

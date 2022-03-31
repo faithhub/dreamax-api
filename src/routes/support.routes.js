@@ -12,4 +12,4 @@ router.get('/get2', function(req, res, next){
 })
 
 
-export { router }
+export { module, router }

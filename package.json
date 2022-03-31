@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -r esm -r dotenv/config src/server.js"
+    "start": "nodemon -r esm -r dotenv/config src/server.js",
+    "migrate:up": "npx sequelize-cli db:migrate",
+    "migrate:down": "npx sequelize-cli db:migrate:undo"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.4.1"
   }
 }

@@ -1,6 +1,7 @@
 import http from 'http'
-import app from './index'
+import app from './app'
 import { Server } from 'socket.io'
+import Websockets from './utils/websockets';
 
 
 function boostrap() {
@@ -8,13 +9,17 @@ function boostrap() {
 
     const server = http.createServer(app);
 
-    // global.io = new Server(server);
+    const io = new Server(server);
 
-    // global.io.on('connection')
+    io.on('connection', Websockets.connection);
 
-    server.listen(port, () => {
-        console.log(`Application started on ${port}`)
-    })
+    server.listen(port);
+
+    server.on("listening", () => {
+        console.log(`Listening on port:: http://localhost:${port}/`)
+      });
+
+
 }
 
 boostrap();

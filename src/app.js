@@ -13,6 +13,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// app.use('/api/v1', (req, res, next) => {
+//     res.status(200).json({ status: "success", message: "Welcome to Dreamax API V1" })
+// });
+
 app.use("/api/v1", v1Router);
 
 app.use('/api/v1', (req, res, next) => {
@@ -34,6 +38,5 @@ app.use((error, req, res, next) => {
         }
     })
 })
-
 
 export default app;

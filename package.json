@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -r esm -r dotenv/config src/server.js"
+    "start": "nodemon -r esm -r dotenv/config src/server.js",
+    "migrate:up": "npx sequelize-cli db:migrate",
+    "migrate:down": "npx sequelize-cli db:migrate:undo"
   },
   "keywords": [],
   "author": "",
@@ -15,14 +17,18 @@
     "dotenv": "^16.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.3",
+    "express-validator": "^6.14.0",
     "fs": "0.0.1-security",
     "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
     "path": "^0.12.7",
+    "sequelize": "^6.17.0",
     "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.4.1"
   }
 }

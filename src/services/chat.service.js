@@ -1,5 +1,5 @@
-import { Room } from '../db/models'
-import { RoomMessage } from '../db/models'
+const { Room, Message } = require('../models');
+const { NotFoundException, BadRequestException } = require('../exceptions')
 
 const checkRoomExist = async(ticketId) => {
     const findRoom  = await Room.findOne({
@@ -17,18 +17,34 @@ const checkRoomExist = async(ticketId) => {
     });
     await createRoom.save();
 
-    return createRoom;
+    return { data: createRoom };
 
 }
 
 const sendMessage = async (content, roomId) => {
-    const newMessage = RoomMessage.build({
+    const newMessage = Message.build({
         text: content.text,
         image: content.image,
         roomId: roomId,
         
-    })
+    });
+    await newMessage.save();
 
+    return { data: newMessage };
 }
 
-export { checkRoomExist, sendMessage}
+const getAllRoomConversation = async(roomId) => {
+    const getMessages = await Message.findAll({
+        where: {
+            roomId: roomId
+        }
+    });
+
+    if (!getMessages) {
+        throw new NotFoundException('No messages was found with this roomId')
+    }
+
+    return { data: getMessages };
+}
+
+module.exports =  { checkRoomExist, sendMessage, getAllRoomConversation }

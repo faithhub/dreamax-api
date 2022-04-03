@@ -9,7 +9,7 @@ const DepartmentController = new departmentController();
 router.post('/createDepartment', DepartmentValidation('createDepartment'), DepartmentController.createDepartment);
 router.get('/fetchAllDepartments', DepartmentController.fetchAllDepartments);
 router.get('/fetchSingleDepartment/:id', DepartmentController.fetchSingleDepartment);
-router.put('/editDepartment/:id', DepartmentValidation('createDepartment'), DepartmentController.editDepartment);
-router.delete('/deleteDepartment/:id', DepartmentController.deleteDepartment);
+router.put('/editSingleDepartment/:id', DepartmentValidation('createDepartment'), DepartmentController.editSingleDepartment);
+router.delete('/deleteSingleDepartment/:id', DepartmentController.deleteSingleDepartment);
 
 export { module, router };

@@ -1,7 +1,7 @@
 // import { createRequire } from "module";
 // const require = createRequire(import.meta.url);
 const { sendMessage, getAllRoomConversation, checkRoomExist } = require('../services/chat.service')
-const validate = require("../validations/support.validations");
+// const validate = require("../validations/support.validations");
 
 const fetchAllRoomConversations = async function (req, res, next) {
     const { roomId } = req.query

@@ -1,4 +1,4 @@
-const { Room, Message } = require('../models');
+const { Room, Message } = require('../db/models');
 const { NotFoundException, BadRequestException } = require('../exceptions')
 
 const checkRoomExist = async(ticketId) => {

@@ -1,69 +1,64 @@
 const { TeamMember } = require('../db/models');
 // const { NotFoundException, BadRequestException } = require('../exceptions');
 
-const createNewTeamMember = async (payload) => {
-    const createTeamMember = await TeamMember.create({
-        username: payload.username,
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        departmentId: payload.departmentId,
-    })
-
-    if (!createTeamMember) {
-        return {error: "An error occur when creating a new team member"};
-        throw new BadRequestException("An error occur when creating a new team member")
-    }
-
-    return { data: createTeamMember };
-
-}
-
-const updateSingleTeamMember = async function (teamMemberId, payload) {
-    const updateTeamMember = await TeamMember.update(
-        { username: payload.username },
-        {
-            where: { id: teamMemberId }
+export default class{
+    static async createNewTeamMember(payload){
+        const createTeamMember = await TeamMember.create({
+            username: payload.username,
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            departmentId: payload.departmentId,
         });
-    if (!updateTeamMember) {
-        return {error: "An error occur when creating a new department"};
-        throw new BadRequestException("An error occur when updating team member details");
-    }
-    return { data: updateTeamMember };
-}
-
-const getAllTeamMembers = async () => {
-    const getAll = await TeamMember.findAll({})
-    return { data: getAll }
-}
-
-const getSingleTeamMember = async (teamMemberId) => {
-    const getSingle = await TeamMember.findOne({
-        where: {
-            id: teamMemberId
+    
+        if (!createTeamMember) {
+            return {error: "An error occur when creating a new team member"};
         }
-    });
+    
+        return { data: createTeamMember };
+    };
 
-    if (!getSingle) {
-        return {error: "No team member found with this teamMemberId " + teamMemberId};
-        throw new NotFoundException('No team member found with this teamMemberId ' + teamMemberId)
-    }
-
-    return { data: getSingle };
-}
-
-const deleteSingleTeamMember = async (teamMemberId) => {
-    const deleteTeamMember = await TeamMember.destroy({
-        where: {
-            id: teamMemberId
+    static async updateSingleTeamMember(teamMemberId, payload) {
+        const updateTeamMember = await TeamMember.update(
+            { username: payload.username },
+            {
+                where: { id: teamMemberId }
+            });
+        if (!updateTeamMember) {
+            return {error: "An error occur when creating a new department"};
         }
-    });
+        return { data: updateTeamMember };
+    };
 
-    if (!deleteTeamMember) {
-        return {error: "No team member found with this teamMemberId " + teamMemberId};
-        throw new NotFoundException("No team member found with this teamMemberId " + teamMemberId)
-    }
+    static async getAllTeamMembers(){
+        const getAll = await TeamMember.findAll({});
+        return { data: getAll };
+    };
 
-    return { data: deleteTeamMember };
-}
+    static async getSingleTeamMember(teamMemberId){
+        const getSingle = await TeamMember.findOne({
+            where: {
+                id: teamMemberId
+            }
+        });
+    
+        if (!getSingle) {
+            return {error: "No team member found with this teamMemberId " + teamMemberId};
+        }
+    
+        return { data: getSingle };
+    };
 
-module.exports = { getAllTeamMembers, getSingleTeamMember, deleteSingleTeamMember, createNewTeamMember, updateSingleTeamMember }
+    static async deleteSingleTeamMember(teamMemberId){
+        const deleteTeamMember = await TeamMember.destroy({
+            where: {
+                id: teamMemberId
+            }
+        });
+    
+        if (!deleteTeamMember) {
+            return {error: "No team member found with this teamMemberId " + teamMemberId};
+        }
+    
+        return { data: deleteTeamMember };
+    };
+};

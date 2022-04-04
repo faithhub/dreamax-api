@@ -14,5 +14,5 @@ export default class {
         const getAutoResponse = await RespondMessage.create(messageObject)
 
         return { data: getAutoResponse };
-    }
+    }ß
 }

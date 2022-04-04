@@ -5,11 +5,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-<<<<<<< HEAD:src/db/models/index.js
-const config = require(__dirname + '/../database/config.json')[env];
-=======
 const config = require(__dirname + '/../../config/config.json')[env];
->>>>>>> 2c5443cd4e98f02e63342743920c2d1c9bf788d5:src/models/index.js
 const db = {};
 
 let sequelize;

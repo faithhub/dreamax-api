@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 const { Room, Message } = require('../db/models');
 const { NotFoundException, BadRequestException } = require('../exceptions')
-=======
-import { Room, Message } from '../db/models';
-// const { Op } = require('sequelize/types');
->>>>>>> 2c5443cd4e98f02e63342743920c2d1c9bf788d5
 
 export default class {
     static async checkRoomExist(ticketId) {

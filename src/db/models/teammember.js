@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TeamMember.init({
+    userId: DataTypes.INTEGER,
     adminType: DataTypes.INTEGER,
     departmentId: DataTypes.INTEGER,
     username: DataTypes.STRING,

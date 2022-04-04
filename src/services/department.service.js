@@ -1,75 +1,75 @@
 const { Department } = require('../db/models');
-const { NotFoundException, BadRequestException } = require('../exceptions');
+// const { NotFoundException, BadRequestException } = require('../exceptions');
 
-const createNewDepartment = async function (payload) {
-    const createDepartment = await Department.create({
-        name: payload.name,
-        email: payload.email,
-        status: payload.status,
-        labelColor: payload.labelColor,
-        description: payload.description
-    })
+export default class{
+    static async createNewDepartment(payload) {
+        const createDepartment = await Department.create({
+            name: payload.name,
+            email: payload.email,
+            status: payload.status,
+            labelColor: payload.labelColor,
+            description: payload.description
+        })
+    
+        if (!createDepartment) {
+            return {error: "An error occur when creating a new department"};
+        }
+    
+        return { data: createDepartment };
+    };
 
-    if (!createDepartment) {
-        throw new BadRequestException("An error occur when creating a new department");
-    }
+    static async editSingleDepartment (departmentId, payload) {
+        const editDepartment = await Department.update(
+            { name: payload.name, email: payload.email, labelColor: payload.labelColor, description: payload.description },
+            {
+                where: {
+                    id: departmentId
+                }
+            }
+        );
+    
+        if (!editDepartment) {
+            return {error: "An error occur when updating department data"};
+        }
+    
+        return { data: editDepartment };
+    };
 
-    return { data: createDepartment };
-};
+    static async getAllDepartments() {
+        const getDepartment = await Department.findAll({});
+    
+        if (!getDepartment) {
+            return {error: "An error occur when fetching all department"};
+        }
+    
+        return { data: getDepartment };
+    };
 
-const editSingleDepartment = async function (departmentId, payload) {
-    const editDepartment = await Department.update(
-        { name: payload.name, email: payload.email, labelColor: payload.labelColor, description: payload.description },
-        {
+    static async fetchSingleDepartment(departmentId) {
+        const getSingleDepartment = await Department.findOne({
             where: {
                 id: departmentId
             }
+        });
+    
+        if (!getSingleDepartment) {
+            return {error: "No department found with this departmentId " + departmentId};
         }
-    );
+    
+        return { data: getSingleDepartment };
+    };
 
-    if (!editDepartment) {
-        throw new BadRequestException("An error occur when updating department data");
-    }
-
-    return { data: editDepartment };
-};
-
-const getAllDepartments = async function () {
-    const getDepartment = await Department.findAll({});
-
-    if (!getDepartment) {
-        throw new BadRequestException("An error occur when fetching all department");
-    }
-
-    return { data: getDepartment };
-};
-
-const fetchSingleDepartment = async function (departmentId) {
-    const getSingleDepartment = await Department.findOne({
-        where: {
-            id: departmentId
+    static async deleteSingleDepartment(departmentId) {
+        const deleteDepartment = await Department.destroy({
+            where: {
+                id: departmentId
+            }
+        });
+    
+        if (!deleteDepartment) {
+            return {error: "No department found with this departmentId " + departmentId};
         }
-    });
-
-    if (!getSingleDepartment) {
-        throw new NotFoundException("No department found with this departmentId " + departmentId);
-    }
-
-    return { data: getSingleDepartment };
+    
+        return { data: deleteDepartment };
+    };
 };
-
-const deleteSingleDepartment = async function (departmentId) {
-    const deleteDepartment = await Department.destroy({
-        where: {
-            id: departmentId
-        }
-    });
-
-    if (!deleteDepartment) {
-        throw new NotFoundException("No department found with this departmentId " + departmentId);
-    }
-
-    return { data: deleteDepartment };
-};
-
-module.exports = { getAllDepartments, createNewDepartment, fetchSingleDepartment, deleteSingleDepartment, editSingleDepartment };

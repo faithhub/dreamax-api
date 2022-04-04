@@ -1,5 +1,5 @@
 const { Room, Message } = require('../db/models');
-const { NotFoundException, BadRequestException } = require('../exceptions')
+// const { NotFoundException, BadRequestException } = require('../exceptions')
 
 export default class {
     static async checkRoomExist(ticketId) {

@@ -1,5 +1,5 @@
 const { TeamMember } = require('../db/models');
-const { NotFoundException, BadRequestException } = require('../exceptions');
+// const { NotFoundException, BadRequestException } = require('../exceptions');
 
 const createNewTeamMember = async (payload) => {
     const createTeamMember = await TeamMember.create({
@@ -10,6 +10,7 @@ const createNewTeamMember = async (payload) => {
     })
 
     if (!createTeamMember) {
+        return {error: "An error occur when creating a new team member"};
         throw new BadRequestException("An error occur when creating a new team member")
     }
 
@@ -24,6 +25,7 @@ const updateSingleTeamMember = async function (teamMemberId, payload) {
             where: { id: teamMemberId }
         });
     if (!updateTeamMember) {
+        return {error: "An error occur when creating a new department"};
         throw new BadRequestException("An error occur when updating team member details");
     }
     return { data: updateTeamMember };
@@ -42,6 +44,7 @@ const getSingleTeamMember = async (teamMemberId) => {
     });
 
     if (!getSingle) {
+        return {error: "No team member found with this teamMemberId " + teamMemberId};
         throw new NotFoundException('No team member found with this teamMemberId ' + teamMemberId)
     }
 
@@ -56,6 +59,7 @@ const deleteSingleTeamMember = async (teamMemberId) => {
     });
 
     if (!deleteTeamMember) {
+        return {error: "No team member found with this teamMemberId " + teamMemberId};
         throw new NotFoundException("No team member found with this teamMemberId " + teamMemberId)
     }
 

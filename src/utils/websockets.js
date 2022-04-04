@@ -1,16 +1,26 @@
-import { checkRoomExist, getAllRoomConversation, sendMessage } from "../services/chat.service"
+import chatService from "../services/chat.service";
 
 class Websockets {
     connection(client) {
         client.on('msgToServer', async(payload) => {
-            const room = await checkRoomExist(payload.ticketId);
-            client.join(room.id);
-            const msg = await sendMessage(payload, room.id);
+           try {
+            const getRoom = await chatService.checkRoomExist(payload.ticketId)
+            const room = getRoom.data;
 
-            const messages = await getAllRoomConversation(room.id);
+            client.join(room.id);
+            const msg = await chatService.sendMessage(payload, room.id);
+
+            const messages = await chatService.getAllRoomConversation(room.id);
 
             client.broadcast.to(room.id).emit('msgToClient', messages);
-            client.emit('msgToClient', messages);
+            client.emit('msgToClient', messages); 
+           } catch (error) {
+               console.log(error)
+           }
+        });
+        client.on('joinRoom', () => {
+            // fetch team 
+
         })
     }
 }

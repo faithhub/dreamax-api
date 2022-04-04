@@ -11,6 +11,30 @@ module.exports = {
       comment: {
         type: Sequelize.STRING
       },
+      ticketNo: {
+        type: Sequelize.STRING
+      },
+      department: {
+        type: Sequelize.INTEGER
+      },
+      piority: {
+        type: Sequelize.INTEGER
+      },
+      status: {
+        type: Sequelize.INTEGER
+      },
+      resolvedTime: {
+        type: Sequelize.INTEGER
+      },
+      respondTime: {
+        type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      assignedTo: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

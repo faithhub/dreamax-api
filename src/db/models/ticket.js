@@ -15,7 +15,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Ticket.init({
-    comment: DataTypes.STRING
+    comment: DataTypes.STRING,
+    department: DataTypes.INTEGER,
+    piority: DataTypes.INTEGER,
+    status: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    assignedTo: DataTypes.INTEGER,
+    ticketNo: DataTypes.STRING,
+    resolvedTime: DataTypes.DATE,
+    respondTime: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Ticket',

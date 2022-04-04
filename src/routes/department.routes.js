@@ -1,21 +1,25 @@
 import { Router } from "express";
 import generalMiddleware from "../middleware/general.middleware";
-import departmentController from "../controllers/department.controller";
-import DepartmentValidation from "../validations/department.validations";
+import DepartmentController from "../controllers/department.controller";
 
 const router = Router();
 const module = "department";
-const DepartmentController = new departmentController();
+
+
+router.get('/',
+  generalMiddleware.controllerWrapper(
+    DepartmentController.index,
+    "Error fetching departments")
+);
 
 router.post(
   "/",
   generalMiddleware.controllerWrapper(
-    DepartmentValidation("createDepartment"),
-    DepartmentController.createDepartment,
+    DepartmentController.create,
     "Error creating messages"
   )
 );
-// router.get('/fetchAllDepartments', DepartmentController.fetchAllDepartments);
+
 // router.get('/fetchSingleDepartment/:id', DepartmentController.fetchSingleDepartment);
 // router.put('/editSingleDepartment/:id', DepartmentValidation('createDepartment'), DepartmentController.editSingleDepartment);
 // router.delete('/deleteSingleDepartment/:id', DepartmentController.deleteSingleDepartment);

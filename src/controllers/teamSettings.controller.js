@@ -15,7 +15,7 @@ export default class {
     };
 
     static async edit(req) {
-        var { adminId } = req.params;
+        const { adminId } = req.params;
        
         const getTeamMember = await TeamSetting.findOne({
             where: {

@@ -38,6 +38,6 @@ export default class {
             },
         });
         console.log(adminId)
-        return { data: { assignedToTickets: assignedToTickets, openTickets: openTickets, closedTickets: closedTickets, reolvedTickets:reolvedTickets, unreolvedTickets:unreolvedTickets, recentActivities: recentActivities } }
+        return { data: { assignedToTickets: assignedToTickets, openTickets: openTickets, closedTickets: closedTickets, reolvedTickets:reolvedTickets, unreolvedTickets:unreolvedTickets, recentActivities: [] } }
     };
 }

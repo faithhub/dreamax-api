@@ -1,6 +1,4 @@
-const { check, validationResult } = require("express-validator");
-const { Ticket } = require("../db/models");
-const { CreateDepartment } = require("../validations/department.validations")
+import  { Ticket } from '../db/models';
 
 export default class {
 

@@ -12,13 +12,13 @@ module.exports = {
      * }], {});
     */
     await queryInterface.bulkInsert('TeamMembers', [{
+      userId: 1,
       adminType: 1,
       departmentId: 1,
       username: "Faith",
       firstName: "Dara",
       lastName: "Ola",
-      status: 1,
-      avatar: "Ola.PNG"
+      status: 1
     }], {});
   },
 

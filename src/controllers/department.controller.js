@@ -1,6 +1,5 @@
-const { check, validationResult } = require("express-validator");
-const { Department } = require("../db/models");
-const { CreateDepartment } = require("../validations/department.validations")
+import { Department } from "../db/models";
+import { CreateDepartment } from "../validations/department.validations";
 
 export default class {
 

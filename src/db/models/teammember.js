@@ -11,13 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Department, {foreignKey:"departmentId"})
+      this.belongsTo(models.Department, {foreignKey: 'departmentId'})
+      this.hasOne(models.TeamSetting, {foreignKey:"adminId"})
     }
   }
   TeamMember.init({
     adminId: DataTypes.INTEGER,
     adminType: DataTypes.INTEGER,
-    departmentId: DataTypes.INTEGER,
+    departmentId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+      references: {
+        model: "Department",
+        key: 'id',
+      },
+    },
     username: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,

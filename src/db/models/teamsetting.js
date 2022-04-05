@@ -11,19 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.TeamMember, { foreignKey: 'adminId' })
     }
   }
   TeamSetting.init({
     fields: {
       type: DataTypes.TEXT,
-      get: function() {
+      get: function () {
         return JSON.parse(this.getDataValue("fields"));
       },
-      set: function(value) {
+      set: function (value) {
         return this.setDataValue("fields", JSON.stringify(value));
       }
     },
-    adminId: DataTypes.INTEGER
+    adminId: {
+      type: DataTypes.INTEGER
+    },
   }, {
     sequelize,
     modelName: 'TeamSetting',

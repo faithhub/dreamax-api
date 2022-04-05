@@ -1,4 +1,4 @@
-import { TeamSetting } from "../db/models";
+import { TeamSetting, TeamMember } from "../db/models";
 
 export default class {
 
@@ -7,20 +7,23 @@ export default class {
         const teamMember = await TeamSetting.findOne({
             where: {
                 adminId
-            }
+            }, include: [ {
+                    model: TeamMember,
+                    attributes: ['id', 'username', 'firstName', 'lastName'],
+                },]
         });
         return { data: { teamMember } };
     };
 
     static async edit(req) {
         var { adminId } = req.params;
-       
+
         const getTeamMember = await TeamSetting.findOne({
             where: {
                 adminId
             }
         });
-        
+
         let newData = { ...getTeamMember.fields, ...req.body };
 
         const teamMember = await TeamSetting.update(

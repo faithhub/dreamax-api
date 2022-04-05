@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Ticket, {as: 'Ticket', foreignKey: 'ticketId'})
     }
   }
   FeedBack.init({

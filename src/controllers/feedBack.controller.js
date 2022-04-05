@@ -1,4 +1,4 @@
-import { FeedBack } from "../db/models/feedback";
+import { FeedBack } from "../db/models";
 
 export default class {
     static async index(req) {
@@ -42,11 +42,13 @@ export default class {
     }
 
     static async getByTicket(req) {
-        const { ticketId } = req.query
-        const feedbacks = await FeedBack.findAll({
+        const { ticketId } = req.params
+
+        const feedbacks = await FeedBack.findOne({
             where: {
                 ticketId
-            }
+            },
+            include: 'Ticket'
         });
         return { data: feedbacks } 
 

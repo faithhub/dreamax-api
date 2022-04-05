@@ -15,7 +15,6 @@ export default class {
             charset: 'numeric'
         })
         // const { error, value } = TicketSchema.validate(req.body);
-
         // if (error) {
         //     return { error, value}
         // }

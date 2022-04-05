@@ -20,6 +20,7 @@ router.post(
     "Error creating department"
   )
 );
+
 router.get(
   '/:id',
   generalMiddleware.controllerWrapper(

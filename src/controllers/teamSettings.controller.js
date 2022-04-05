@@ -1,6 +1,4 @@
-const { check, validationResult } = require('express-validator');
-const { TeamSetting } = require("../db/models");
-const userSettings = require("../constant/user-settings.json");
+import { TeamSetting } from "../db/models";
 
 export default class {
 

@@ -6,7 +6,6 @@ export default class {
 
     static async get(req) {
         const { adminId } = req.params;
-        console.log(adminId)
         const teamMember = await TeamSetting.findOne({
             where: {
                 adminId

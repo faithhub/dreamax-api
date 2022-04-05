@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TeamSetting.init({
-    // fields: DataTypes.TEXT,
     fields: {
       type: DataTypes.TEXT,
       get: function() {

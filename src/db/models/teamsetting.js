@@ -14,7 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TeamSetting.init({
-    fields: DataTypes.TEXT,
+    // fields: DataTypes.TEXT,
+    fields: {
+      type: DataTypes.TEXT,
+      get: function() {
+        return JSON.parse(this.getDataValue("fields"));
+      },
+      set: function(value) {
+        return this.setDataValue("fields", JSON.stringify(value));
+      }
+    },
     adminId: DataTypes.INTEGER
   }, {
     sequelize,

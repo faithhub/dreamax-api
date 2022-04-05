@@ -12,7 +12,6 @@ fs.readdirSync(__dirname)
         );
     })
     .forEach((file) => {
-        console.log(file, __dirname)
         const route = require(path.join(__dirname, file));
         router.use(`/${route.module}`, route.router);
   });

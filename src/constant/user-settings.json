@@ -1,0 +1,10 @@
+{
+    "awayMessage":0,
+    "autoReplyMessage":0,
+    "enableAutoReply":0,
+    "sendAwayMessage":0,
+    "availabilityFrom":"",
+    "availabilityTo":"",
+    "notifyMeWhenAway":0,
+    "availabilityWeekend":0
+}

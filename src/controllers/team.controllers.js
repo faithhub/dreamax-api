@@ -27,7 +27,7 @@ export default class {
         const teamMember = await TeamMember.findOne({
             where: {
                 id
-            },
+            }
         });
         return { data: teamMember };
     };

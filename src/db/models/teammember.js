@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.Department, {foreignKey: 'departmentId'})
       this.hasOne(models.TeamSetting, {foreignKey:"adminId"})
+      this.hasMany(models.FeedBack, {foreignKey:"adminId"})
     }
   }
   TeamMember.init({

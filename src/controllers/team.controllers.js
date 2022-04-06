@@ -1,4 +1,4 @@
-import { TeamMember, TeamSetting, Department, FeedBack} from "../db/models";
+import { TeamMember, TeamSetting, Department, FeedBack, Ticket} from "../db/models";
 import userSettings from "../constant/user-settings.json";
 
 export default class {
@@ -22,6 +22,7 @@ export default class {
 
     static async get(req) {
         const { id } = req.params;
+        const adminId = { assignedTo: req.params.id }
         const teamMember = await TeamMember.findOne({
             where: {
                 id
@@ -36,8 +37,12 @@ export default class {
                 }, {
                     model: FeedBack,
                     attributes: ['id', 'usercomment', 'admincomment', 'rating'],
-                },]
+                },{
+                    model: Ticket,
+                    attributes: ['id', 'status', 'userId', 'piority', 'department', 'comment', 'ticketNo'],
+                }]
         });
+
         return { data: teamMember };
     };
 

@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Department, {foreignKey: 'departmentId'})
       this.hasOne(models.TeamSetting, {foreignKey:"adminId"})
       this.hasMany(models.FeedBack, {foreignKey:"adminId"})
+      this.hasMany(models.Ticket, {foreignKey:"assignedTo"})
     }
   }
   TeamMember.init({

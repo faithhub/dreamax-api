@@ -50,7 +50,7 @@ export default class {
       },
     });
     return { data: department };
-  }
+  };
 
   static async delete(req) {
     const { id } = req.params;
@@ -60,5 +60,6 @@ export default class {
       }
     });
     return { data: department };
-  }
+  };
+
 }

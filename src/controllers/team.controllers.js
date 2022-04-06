@@ -1,11 +1,59 @@
-import { TeamMember, TeamSetting, Department, FeedBack, Ticket} from "../db/models";
+import { TeamMember, TeamSetting, Department, FeedBack, Ticket } from "../db/models";
 import userSettings from "../constant/user-settings.json";
+import Sequelize from "sequelize";
 
 export default class {
 
     static async index() {
+
         const teamMembers = await TeamMember.findAll({});
-        return { data: teamMembers }
+        let collateTeamMember = [];
+
+        teamMembers.forEach(async el => {
+            const { id } = el;
+            let assigned;
+            let open;
+            let closed;
+            let reolved;
+            let unreolved;
+
+            assigned = await Ticket.count({
+                where: id,
+            })
+            open = await Ticket.count({
+                where: {
+                    assignedTo: el.id,
+                    status: 1
+                },
+            });
+            closed = await Ticket.count({
+                where: {
+                    assignedTo: el.id,
+                    status: 0
+                },
+            });
+            reolved = await Ticket.count({
+                where: {
+                    assignedTo: el.id,
+                    status: 2
+                },
+            });
+            unreolved = await Ticket.count({
+                where: {
+                    assignedTo: el.id,
+                    status: 3
+                },
+            });
+
+            let teamMemberObject = {};
+            teamMemberObject["assigned"] = assigned;
+            teamMemberObject["open"] = open;
+
+            collateTeamMember.push(teamMemberObject)
+        });
+
+        return { data: { collateTeamMember, teamMembers } }
+
     };
 
     static async create(req) {
@@ -22,7 +70,7 @@ export default class {
 
     static async get(req) {
         const { id } = req.params;
-        const adminId = { assignedTo: req.params.id }
+        const adminId = { adminId: req.params.id }
         const teamMember = await TeamMember.findOne({
             where: {
                 id
@@ -37,17 +85,25 @@ export default class {
                 }, {
                     model: FeedBack,
                     attributes: ['id', 'usercomment', 'admincomment', 'rating'],
-                },{
+                }, {
                     model: Ticket,
-                    attributes: ['id', 'status', 'userId', 'piority', 'department', 'comment', 'ticketNo'],
+                    attributes: ['id', 'status', 'userId', 'assignedTo', 'piority', 'department', 'comment', 'ticketNo'],
                 }]
         });
 
-        return { data: teamMember };
+        const feedBackTotalsum = await FeedBack.sum('rating', {
+            where: adminId,
+        });
+        const totalFeedbackCount = await FeedBack.count({
+            where: adminId
+        });
+        const averageRating = feedBackTotalsum / totalFeedbackCount;
+
+        return { data: { averageRating: averageRating, teamMember } };
     };
 
     static async edit(req) {
-        var { id } = req.params;
+        let { id } = req.params;
         const updateBody = {
             ...req.body,
         };

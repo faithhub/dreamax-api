@@ -19,7 +19,9 @@ class Websockets {
            }
         });
         client.on('joinRoom', () => {
-            // fetch team 
+            // fetch team setting and extract auto reply message
+
+            
 
 
         })

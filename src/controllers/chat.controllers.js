@@ -2,10 +2,11 @@ import { Room, Message } from '../db/models';
 import { Op } from "sequelize";
 
 export default class {
-    static async checkRoomExist(ticketId) {
+    static async checkRoomExist(req, res) {
+        const { id } = req.body
         const findRoom  = await Room.findOne({
             where: {
-                ticketId: ticketId
+                ticketId: id
             }
         })
     
@@ -48,6 +49,30 @@ export default class {
     
         return { data: getMessages };
     }
+
+    static async getAllRoomMessages (req, res) {
+        const { id } = req.param;
+        const getMessages = await Room.findOne({
+            where: {
+                ticketId: id
+              },
+              include: 'Mesages'
+        });
+
+        // const getMessages = await Room.findOne({
+        //     where:{
+        //         id: getRoom.id
+        //     },
+        //     include: 'Mesages'
+        // })
+
+        
+    
+        return { data: getMessages };
+    }
+    
+
+    
 
 }
 

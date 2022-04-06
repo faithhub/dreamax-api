@@ -21,6 +21,13 @@ class Websockets {
         client.on('joinRoom', () => {
             // fetch team 
 
+
+        })
+
+        client.on('updateConnection', () => {
+            // update 
+            
+
         })
     }
 }

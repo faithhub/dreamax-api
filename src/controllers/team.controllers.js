@@ -6,7 +6,11 @@ export default class {
 
     static async index() {
 
-        const teamMembers = await TeamMember.findAll({});
+        const teamMembers = await TeamMember.findAll({
+            where: {
+                deleted: 0
+            }
+        });
         let collateTeamMember = [];
 
         teamMembers.forEach(async el => {
@@ -73,7 +77,8 @@ export default class {
         const adminId = { adminId: req.params.id }
         const teamMember = await TeamMember.findOne({
             where: {
-                id
+                id,
+                deleted: 0
             },
             include: [
                 {
@@ -109,7 +114,8 @@ export default class {
         };
         const teamMember = await TeamMember.update(updateBody, {
             where: {
-                id
+                id,
+                deleted: 0
             },
         });
         return { data: teamMember };
@@ -117,10 +123,10 @@ export default class {
 
     static async delete(req) {
         const { id } = req.params;
-        const teamMember = await TeamMember.destroy({
+        const teamMember = await TeamMember.update({ deleted: 1 }, {
             where: {
                 id
-            }
+            },
         });
         return { data: teamMember };
     };

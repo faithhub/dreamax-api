@@ -6,23 +6,28 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       usercomment: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT(500)
       },
       admincomment: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT(500)
       },
       ticketId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       adminId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(11),
         default: 0
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

@@ -7,34 +7,39 @@ export default class {
         const id = { assignedTo: req.params.adminId }
         const recentActivities = await Ticket.findAll({
             limit: 10,
-            where: id,
+            where: id, deleted: 0,
             order: [['createdAt', 'DESC']]
         });
         const assignedToTickets = await Ticket.count({
             where: id,
+            deleted: 0
         });
         const closedTickets = await Ticket.count({
             where: {
                 assignedTo: adminId,
-                status: 0
+                status: 'closed',
+                deleted: 0
             },
         });
         const openTickets = await Ticket.count({
             where: {
                 assignedTo: adminId,
-                status:1
+                status: 'open',
+                deleted: 0
             },
         });
         const reolvedTickets = await Ticket.count({
             where: {
                 assignedTo: adminId,
-                status: 2
+                status: 'resolved',
+                deleted: 0
             },
         });
         const unreolvedTickets = await Ticket.count({
             where: {
                 assignedTo: adminId,
-                status: 3
+                status: 'unresolved',
+                deleted: 0
             },
         });
         console.log(adminId)

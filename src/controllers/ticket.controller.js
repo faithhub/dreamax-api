@@ -5,7 +5,11 @@ import { TicketSchema } from '../validations/support.validations';
 
 export default class {
     static async index(req) {
-        const tickets = await Ticket.findAll({});
+        const tickets = await Ticket.findAll({
+            where: {
+                deleted: 0
+            }
+        });
         return { data: tickets } 
 
     }
@@ -33,7 +37,8 @@ export default class {
         }
         const tickets = await Ticket.update(updateBody,{
             where: {
-                id
+                id,
+                deleted: 0
             }
         });
         return { data: tickets } 
@@ -41,7 +46,7 @@ export default class {
     }
     static async delete(req) {
         const { id } = req.params
-        const ticket = await Ticket.destroy({
+        const ticket = await Ticket.update({ deleted: 1},{
             where: {
                 id
             }
@@ -53,7 +58,8 @@ export default class {
         const { id } = req.params
         const tickets = await Ticket.findOne({
             where: {
-                id
+                id,
+                deleted: 0
             }
         });
         return { data: tickets } 

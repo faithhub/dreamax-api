@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     adminId: {
       type: DataTypes.INTEGER
     },
+    deleted: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'TeamSetting',

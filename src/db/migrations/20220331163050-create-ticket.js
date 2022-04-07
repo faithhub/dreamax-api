@@ -6,34 +6,42 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       comment: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(200)
       },
       ticketNo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       department: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       piority: {
-        type: Sequelize.INTEGER
+        type:   Sequelize.ENUM,
+        values: ['high', 'medium', 'low']
       },
       status: {
-        type: Sequelize.INTEGER
+        type:   Sequelize.ENUM,
+        values: ['opened', 'closed', 'resolved', 'unresolved'],
+        defaultValue: 'opened'
       },
       resolvedTime: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       respondTime: {
         type: Sequelize.DATE
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       assignedTo: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

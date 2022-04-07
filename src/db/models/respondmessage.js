@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   RespondMessage.init({
-    message: DataTypes.TEXT
+    message: DataTypes.TEXT,
+    deleted: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'RespondMessage',

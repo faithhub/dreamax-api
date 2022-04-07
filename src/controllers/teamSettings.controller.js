@@ -6,7 +6,8 @@ export default class {
         const { adminId } = req.params;
         const teamMember = await TeamSetting.findOne({
             where: {
-                adminId
+                adminId,
+                deleted: 0
             }, include: [ {
                     model: TeamMember,
                     attributes: ['id', 'username', 'firstName', 'lastName'],
@@ -16,11 +17,12 @@ export default class {
     };
 
     static async edit(req) {
-        var { adminId } = req.params;
-
+        const { adminId } = req.params;
+       
         const getTeamMember = await TeamSetting.findOne({
             where: {
-                adminId
+                adminId,
+                deleted: 0
             }
         });
 
@@ -29,7 +31,8 @@ export default class {
         const teamMember = await TeamSetting.update(
             { fields: newData }, {
             where: {
-                adminId
+                adminId,
+                deleted: 0
             }
         });
 

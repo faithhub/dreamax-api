@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     status: DataTypes.INTEGER,
     labelColor: DataTypes.STRING,
-    description: DataTypes.STRING
+    description: DataTypes.STRING,
+    deleted: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Department',

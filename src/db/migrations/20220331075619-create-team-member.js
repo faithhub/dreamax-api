@@ -11,7 +11,7 @@ module.exports = {
       adminType: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        default: 1
+        defaultValue: 1
       },
       adminId: {
         type: Sequelize.INTEGER(11),
@@ -40,8 +40,14 @@ module.exports = {
       },
       status: {
         type: Sequelize.INTEGER(11),
-        default: 0,
+        allowNull: false,
+        defaultValue: 0,
         Comment: "The status includes, 0 for not available/away and 1 for available"
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

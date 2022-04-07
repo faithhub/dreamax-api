@@ -5,7 +5,7 @@ import Websockets from './utils/websockets';
 
 
 function boostrap() {
-    const port = process.env.PORT || 5000;
+    const port = process.env.PORT || 8052;
 
     const server = http.createServer(app);
 

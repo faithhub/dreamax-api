@@ -2,7 +2,11 @@ import { FeedBack } from "../db/models";
 
 export default class {
     static async index(req) {
-        const feedbacks = await FeedBack.findAll({});
+        const feedbacks = await FeedBack.findAll({
+            where: {
+                deleted: 0
+            }
+        });
         return { data: feedbacks } 
 
     }
@@ -20,7 +24,8 @@ export default class {
         const { id } = req.params;
         const feedback = await FeedBack.findOne({
             where: {
-                id
+                id,
+                deleted: 0
             }
         });
         return { data: feedback } 
@@ -34,7 +39,8 @@ export default class {
         }
         const feedback = await FeedBack.update(feedbackObject, {
             where: {
-                id
+                id,
+                deleted: 0
             }
         })
         return { data: feedback } 
@@ -46,7 +52,8 @@ export default class {
 
         const feedbacks = await FeedBack.findOne({
             where: {
-                ticketId
+                ticketId,
+                deleted: 0
             },
             include: 'Ticket'
         });
@@ -58,7 +65,8 @@ export default class {
         const { adminId } = req.query
         const feedbacks = await FeedBack.findAll({
             where: {
-                adminId
+                adminId,
+                deleted: 0
             }
         });
         return { data: feedbacks } 

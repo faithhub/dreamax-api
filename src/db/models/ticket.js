@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type:   DataTypes.ENUM,
-      values: ['opened', 'closed', 'resolved', 'unresolved'],
+      values: ['open', 'closed', 'resolved', 'unresolved'],
     },
     userId: DataTypes.INTEGER,
     assignedTo: DataTypes.INTEGER,

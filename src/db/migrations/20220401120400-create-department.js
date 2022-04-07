@@ -15,20 +15,18 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
-      status:{
+      status: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        default: 1
       },
-      labelColor:{
+      labelColor: {
         type: Sequelize.STRING,
-        allowNull: false
       },
-      description:{
+      description: {
         type: Sequelize.STRING,
-        allowNull: false
       },
       createdAt: {
         allowNull: false,

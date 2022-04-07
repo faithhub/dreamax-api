@@ -1,7 +1,6 @@
 import { Router } from "express";
 import generalMiddleware from "../middleware/general.middleware";
 import DepartmentController from "../controllers/department.controller";
-import DepartmentValidation from "../validations/department.validations";
 
 const router = Router();
 const module = "department";

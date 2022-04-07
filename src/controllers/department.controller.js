@@ -1,22 +1,47 @@
 import { Department, TeamMember } from "../db/models";
-import { CreateDepartment } from "../validations/department.validations";
 import Sequelize from "sequelize";
+import { validateSchema } from "../validations/department.validations";
 
 export default class {
 
   static async index() {
     const departments = await Department.findAll({
-      attributes: {
-        include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
-      },
-      include: [{
-        model: TeamMember, attributes: []
-      }]
+      // attributes: {
+      //   include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
+      // },
+      // include: [{
+      //   model: TeamMember, attributes:[]
+      // }]
     });
     return { data: departments }
   };
 
   static async create(req) {
+
+    const { error } = validateSchema.validate(req.body);
+    if (error) {
+      return { error: error };
+    }
+
+    const { name } = req.body;
+    const { email } = req.body;
+
+    const checkName = await Department.count({
+      where: { name }
+    })
+
+    if (checkName > 0) {
+      return { error: "Department name already exist" };
+    }
+
+    const checkEmail = await Department.count({
+      where: { email }
+    })
+
+    if (checkEmail > 0) {
+      return { error: "Department email already exist" };
+    }
+
     const createDepartment = await Department.create(req.body);
     if (!createDepartment) {
       return { error: "An error occur when creating a new department" };
@@ -39,7 +64,31 @@ export default class {
     return { data: department };
   };
 
-  static async edit(req, res) {
+  static async edit(req) {
+
+    const { error } = validateSchema.validate(req.body);
+    if (error) {
+      return { error: error };
+    }
+    const { name } = req.body;
+    const { email } = req.body;
+
+    const checkName = await Department.count({
+      where: { name }
+    })
+
+    if (checkName > 0) {
+      return { error: "Department name already exist" };
+    }
+
+    const checkEmail = await Department.count({
+      where: { email }
+    })
+
+    if (checkEmail > 0) {
+      return { error: "Department email already exist" };
+    }
+    
     var { id } = req.params;
     const updateBody = {
       ...req.body,

@@ -37,11 +37,10 @@ module.exports = {
       },
       avatar: {
         type: Sequelize.STRING(50),
-        allowNull: false
       },
       status: {
         type: Sequelize.INTEGER(11),
-        allowNull: false,
+        default: 0,
         Comment: "The status includes, 0 for not available/away and 1 for available"
       },
       createdAt: {

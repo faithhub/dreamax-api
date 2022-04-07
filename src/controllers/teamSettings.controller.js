@@ -8,23 +8,27 @@ export default class {
             where: {
                 adminId,
                 deleted: 0
-            }, include: [ {
-                    model: TeamMember,
-                    attributes: ['id', 'username', 'firstName', 'lastName'],
-                },]
+            }, include: [{
+                model: TeamMember,
+                attributes: ['id', 'username', 'firstName', 'lastName'],
+            },]
         });
         return { data: { teamMember } };
     };
 
     static async edit(req) {
         const { adminId } = req.params;
-       
+
         const getTeamMember = await TeamSetting.findOne({
             where: {
                 adminId,
                 deleted: 0
             }
         });
+
+        if (!getTeamMember) {
+            return { error: "No team memner found for this id" };
+        }
 
         let newData = { ...getTeamMember.fields, ...req.body };
 

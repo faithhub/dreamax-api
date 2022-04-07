@@ -1,7 +1,8 @@
 import { TeamMember, TeamSetting, Department, FeedBack, Ticket } from "../db/models";
 import userSettings from "../constant/user-settings.json";
 import Sequelize from "sequelize";
-import { validateSchema } from "../validations/team.validations";
+import { validateSchema, editSchema } from "../validations/team.validations";
+const Op = Sequelize.Op;
 
 export default class {
 
@@ -27,24 +28,28 @@ export default class {
             })
             open = await Ticket.count({
                 where: {
+                    deleted: 0,
                     assignedTo: el.id,
                     status: 1
                 },
             });
             closed = await Ticket.count({
                 where: {
+                    deleted: 0,
                     assignedTo: el.id,
                     status: 0
                 },
             });
             reolved = await Ticket.count({
                 where: {
+                    deleted: 0,
                     assignedTo: el.id,
                     status: 2
                 },
             });
             unreolved = await Ticket.count({
                 where: {
+                    deleted: 0,
                     assignedTo: el.id,
                     status: 3
                 },
@@ -53,6 +58,8 @@ export default class {
             let teamMemberObject = {};
             teamMemberObject["assigned"] = assigned;
             teamMemberObject["open"] = open;
+
+            console.log(teamMemberObject)
 
             collateTeamMember.push(teamMemberObject)
         });
@@ -71,27 +78,29 @@ export default class {
 
         const checkUserId = await TeamMember.count({
             where: { userId }
-        })
+        });
 
         if (checkUserId > 0) {
-            return { error: "The Team member userId already exist" };
+            return { error: "The Team member userId already exists" };
         }
 
         const checkUsername = await TeamMember.count({
             where: { username }
-        })
+        });
 
         if (checkUsername > 0) {
-            return { error: "The Team member username already exist" };
+            return { error: "The Team member username already exists" };
         }
 
         const createTeam = await TeamMember.create(req.body);
         await TeamSetting.create({
             adminId: createTeam.id, fields: userSettings
         });
+
         if (!createTeam) {
             return { error: "An error occur when creating a new Team" };
         }
+
         return { data: createTeam };
     };
 
@@ -131,16 +140,36 @@ export default class {
     };
 
     static async edit(req) {
+
+        const { error } = editSchema.validate(req.body);
+        if (error) {
+            return { error: error };
+        }
         let { id } = req.params;
+        const { username } = req.body;
+
+        const checkUsername = await TeamMember.count({
+            where: {
+                username,
+                id: { [Op.notIn]: [id] }
+            }
+        });
+
+        if (checkUsername > 0) {
+            return { error: "The Team member username already exists" };
+        }
+
         const updateBody = {
             ...req.body,
         };
+
         const teamMember = await TeamMember.update(updateBody, {
             where: {
                 id,
                 deleted: 0
             },
         });
+
         return { data: teamMember };
     };
 
@@ -153,4 +182,22 @@ export default class {
         });
         return { data: teamMember };
     };
+
+    static async status(req) {
+
+        let { id } = req.params;
+
+        const { status } = {
+            ...req.body,
+        };
+
+        const teamMember = await TeamMember.update(status, {
+            where: {
+                id,
+                deleted: 0
+            },
+        });
+        return { data: teamMember };
+    };
+
 };

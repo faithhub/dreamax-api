@@ -51,10 +51,10 @@ export default class {
     }
 
     static async getAllRoomMessages (req, res) {
-        const { id } = req.param;
+        const { ticketId } = req.param;
         const getMessages = await Room.findOne({
             where: {
-                ticketId: id
+                ticketId: ticketId
               },
               include: 'Mesages'
         });

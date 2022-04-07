@@ -1,10 +1,18 @@
-import { Department } from "../db/models";
+import { Department, TeamMember } from "../db/models";
 import { CreateDepartment } from "../validations/department.validations";
+import Sequelize from "sequelize";
 
 export default class {
 
   static async index() {
-    const departments = await Department.findAll({});
+    const departments = await Department.findAll({
+      attributes: {
+        include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
+      },
+      include: [{
+        model: TeamMember, attributes: []
+      }]
+    });
     return { data: departments }
   };
 
@@ -21,7 +29,12 @@ export default class {
     const department = await Department.findOne({
       where: {
         id
-      }
+      }, attributes: {
+        include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
+      },
+      include: [{
+        model: TeamMember, attributes: []
+      }]
     });
     return { data: department };
   };

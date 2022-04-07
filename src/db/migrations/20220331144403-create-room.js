@@ -9,7 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ticketId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

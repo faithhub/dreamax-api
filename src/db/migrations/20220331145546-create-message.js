@@ -6,24 +6,29 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       text: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT(500)
       },
       image: {
         type: Sequelize.STRING
       },
       customerId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(11),
         allowNull: true
       },
       adminId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(11),
         allowNull: true
       },
       roomId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

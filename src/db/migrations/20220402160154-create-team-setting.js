@@ -6,13 +6,18 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       fields: {
         type: Sequelize.TEXT
       },
       adminId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

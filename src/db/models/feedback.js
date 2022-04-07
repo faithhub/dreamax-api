@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     admincomment: DataTypes.TEXT,
     ticketId: DataTypes.INTEGER,
     adminId: DataTypes.INTEGER,
-    rating: DataTypes.INTEGER
+    rating: DataTypes.INTEGER,
+    deleted: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'FeedBack',

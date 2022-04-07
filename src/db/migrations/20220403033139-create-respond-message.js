@@ -6,14 +6,19 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       message: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT(500)
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       updatedAt: {
         allowNull: false,

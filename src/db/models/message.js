@@ -15,11 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Message.init({
-    text: DataTypes.STRING,
+    text: DataTypes.TEXT,
     image: DataTypes.STRING,
     customerId: DataTypes.INTEGER,
     adminId: DataTypes.INTEGER,
-    roomId: DataTypes.INTEGER
+    roomId: DataTypes.INTEGER,
+    deleted: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Message',

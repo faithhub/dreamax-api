@@ -6,29 +6,34 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER(11)
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         unique: true,
         allowNull: false
       },
       email: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         unique: true,
         allowNull: false
       },
       status:{
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(11),
         allowNull: false
       },
       labelColor:{
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false
       },
       description:{
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(200),
         allowNull: false
+      },
+      deleted: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

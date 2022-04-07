@@ -13,19 +13,31 @@ export default class {
         const assignedToTickets = await Ticket.count({
             where: id,
         });
-        const openTickets = await Ticket.count({
-            where: {
-                assignedTo: adminId,
-                status: "open"
-            },
-        });
         const closedTickets = await Ticket.count({
             where: {
                 assignedTo: adminId,
-                status: "closed"
+                status: 0
+            },
+        });
+        const openTickets = await Ticket.count({
+            where: {
+                assignedTo: adminId,
+                status:1
+            },
+        });
+        const reolvedTickets = await Ticket.count({
+            where: {
+                assignedTo: adminId,
+                status: 2
+            },
+        });
+        const unreolvedTickets = await Ticket.count({
+            where: {
+                assignedTo: adminId,
+                status: 3
             },
         });
         console.log(adminId)
-        return { data: { assignedToTickets: assignedToTickets, openTickets: openTickets, closedTickets: closedTickets, recentActivities: recentActivities } }
+        return { data: { assignedToTickets: assignedToTickets, openTickets: openTickets, closedTickets: closedTickets, reolvedTickets:reolvedTickets, unreolvedTickets:unreolvedTickets, recentActivities: [] } }
     };
 }

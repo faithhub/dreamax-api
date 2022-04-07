@@ -1,4 +1,4 @@
-import { TeamMember, TeamSetting } from "../db/models";
+import { TeamMember, TeamSetting, Department, FeedBack, Ticket} from "../db/models";
 import userSettings from "../constant/user-settings.json";
 
 export default class {
@@ -12,7 +12,7 @@ export default class {
         const createTeam = await TeamMember.create(req.body);
         const { adminId } = req.body;
         await TeamSetting.create({
-            adminId, fields: userSettings
+            adminId: createTeam.id, fields: userSettings
         });
         if (!createTeam) {
             return { error: "An error occur when creating a new Team" };
@@ -22,11 +22,27 @@ export default class {
 
     static async get(req) {
         const { id } = req.params;
+        const adminId = { assignedTo: req.params.id }
         const teamMember = await TeamMember.findOne({
             where: {
                 id
-            }
+            },
+            include: [
+                {
+                    model: Department,
+                    attributes: ['id', 'name', 'status'],
+                }, {
+                    model: TeamSetting,
+                    attributes: ['id', 'adminId', 'fields'],
+                }, {
+                    model: FeedBack,
+                    attributes: ['id', 'usercomment', 'admincomment', 'rating'],
+                },{
+                    model: Ticket,
+                    attributes: ['id', 'status', 'userId', 'piority', 'department', 'comment', 'ticketNo'],
+                }]
         });
+
         return { data: teamMember };
     };
 

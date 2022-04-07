@@ -13,10 +13,10 @@ router.post(
     )
     );
 
-router.get(
-    '/',
+router.post(
+    '/send',
     generalMiddleware.controllerWrapper(
-        FeedBackController.index,
+        ChatController.sendMessage,
         "Error Fetching feedbacks"
     )
     );
@@ -24,7 +24,7 @@ router.get(
 router.get(
     '/:id',
     generalMiddleware.controllerWrapper(
-        FeedBackController.get,
+        ChatController.getAllConversation,
         "Error Fetching feedbacks"
     )
     );
@@ -32,7 +32,7 @@ router.get(
 router.get(
     '/ticket/:ticketId',
     generalMiddleware.controllerWrapper(
-        FeedBackController.getByTicket,
+        ChatController.getAllRoomMessages,
         "Error Fetching feedbacks"
     )
     );

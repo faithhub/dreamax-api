@@ -15,22 +15,23 @@ class Websockets {
             client.broadcast.to(room.id).emit('msgToClient', messages);
             client.emit('msgToClient', messages); 
            } catch (error) {
-               console.log(error)
+               console.log(error);
            }
         });
-        client.on('joinRoom', () => {
-            // fetch team setting and extract auto reply message
 
-            
+        // client.on('joinRoom', (payload) => {
+        //     // fetch team setting and extract auto reply message
+        //     const getRoom = await chatService.checkRoomExist(payload.ticketId)
+        //     const room = getRoom.data;
+        // });
 
+        // client.on('updateConnection', (payload) => {
+        //     // update 
+        //     const findRoom = await chatService.getRoomForClient(payload.clientId);
+        //     // dont know what to do
 
-        })
+        // })
 
-        client.on('updateConnection', () => {
-            // update 
-            
-
-        })
     }
 }
 

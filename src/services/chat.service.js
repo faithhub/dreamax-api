@@ -1,4 +1,4 @@
-import { Room, Message } from '../db/models';
+import { Room, Message, Ticket, TeamSetting } from '../db/models';
 // const { Op } = require('sequelize/types');
 
 export default class {
@@ -42,6 +42,35 @@ export default class {
         });
     
         return { data: getMessages };
+    }
+
+    
+    static async getRoomForClient(id) {
+        const getTicket = await Ticket.findOne({
+            where: {
+                customerId: id,
+                assignedTo: id
+            },
+            include: 'ChatRoom'
+        });
+
+        return { data: getTicket };
+
+    }
+
+    static async getTeamAutoReply(id) {
+        const getSetting = await TeamSetting.findOne({
+            where: {
+                adminId: id,
+            },
+        });
+
+        let settingsData = { ...getSetting.fields };
+
+        let replymessage = settingsData.autoReplyMessage
+
+        return { data: replymessage };
+
     }
 
 }

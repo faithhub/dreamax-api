@@ -12,7 +12,8 @@ module.exports = {
         type: Sequelize.TEXT
       },
       adminId: {
-        type: Sequelize.INTEGER(11)
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
       },
       deleted: {
         type: Sequelize.INTEGER(11),

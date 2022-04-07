@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         defaultValue: 1
       },
-      adminId: {
+      userId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         unique: true
@@ -39,10 +39,10 @@ module.exports = {
         type: Sequelize.STRING(50),
       },
       status: {
-        type: Sequelize.INTEGER(11),
+        type:   Sequelize.ENUM,
+        values: ['avaialable', 'away'],
         allowNull: false,
-        defaultValue: 0,
-        Comment: "The status includes, 0 for not available/away and 1 for available"
+        defaultValue: 'away'
       },
       deleted: {
         type: Sequelize.INTEGER(11),

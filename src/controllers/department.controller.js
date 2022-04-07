@@ -9,12 +9,12 @@ export default class {
       where: {
         deleted: 0
       },
-      attributes: {
-        include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
-      },
-      include: [{
-        model: TeamMember, attributes: []
-      }]
+      // attributes: {
+      //   include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
+      // },
+      // include: [{
+      //   model: TeamMember, attributes: []
+      // }]
     });
     return { data: departments }
   };
@@ -74,25 +74,7 @@ export default class {
     if (error) {
       return { error: error };
     }
-    const { name } = req.body;
-    const { email } = req.body;
-
-    const checkName = await Department.count({
-      where: { name }
-    })
-
-    if (checkName > 0) {
-      return { error: "Department name already exist" };
-    }
-
-    const checkEmail = await Department.count({
-      where: { email }
-    })
-
-    if (checkEmail > 0) {
-      return { error: "Department email already exist" };
-    }
-    
+        
     var { id } = req.params;
     const updateBody = {
       ...req.body,

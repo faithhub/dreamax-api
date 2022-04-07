@@ -18,17 +18,17 @@ module.exports = {
         unique: true,
         allowNull: false
       },
-      status:{
-        type: Sequelize.INTEGER(11),
-        allowNull: false
+      status: {
+        type:   Sequelize.ENUM,
+        values: ['active', 'not-active'],
+        allowNull: false,
+        defaultValue: 'active'
       },
       labelColor:{
         type: Sequelize.STRING(50),
-        allowNull: false
       },
       description:{
         type: Sequelize.STRING(200),
-        allowNull: false
       },
       deleted: {
         type: Sequelize.INTEGER(11),

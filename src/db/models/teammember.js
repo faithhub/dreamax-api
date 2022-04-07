@@ -18,17 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TeamMember.init({
-    adminId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     adminType: DataTypes.INTEGER,
-    departmentId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      foreignKey: true,
-      references: {
-        model: "Department",
-        key: 'id',
-      },
-    },
+    departmentId:DataTypes.INTEGER,
     username: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,

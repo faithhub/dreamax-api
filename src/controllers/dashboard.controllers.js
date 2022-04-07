@@ -43,6 +43,6 @@ export default class {
             },
         });
         console.log(adminId)
-        return { data: { assignedToTickets: assignedToTickets, openTickets: openTickets, closedTickets: closedTickets, reolvedTickets:reolvedTickets, unreolvedTickets:unreolvedTickets, recentActivities: [] } }
+        return { data: { assignedToTickets, openTickets, closedTickets, reolvedTickets, unreolvedTickets, recentActivities } }
     };
 }

@@ -1,6 +1,7 @@
 import { TeamMember, TeamSetting, Department, FeedBack, Ticket } from "../db/models";
 import userSettings from "../constant/user-settings.json";
 import Sequelize from "sequelize";
+import { validateSchema } from "../validations/team.validations";
 
 export default class {
 
@@ -61,8 +62,30 @@ export default class {
     };
 
     static async create(req) {
+        const { error } = validateSchema.validate(req.body);
+        if (error) {
+            return { error: error };
+        }
+        const { userId } = req.body;
+        const { username } = req.body;
+
+        const checkUserId = await TeamMember.count({
+            where: { userId }
+        })
+
+        if (checkUserId > 0) {
+            return { error: "The Team member userId already exist" };
+        }
+
+        const checkUsername = await TeamMember.count({
+            where: { username }
+        })
+
+        if (checkUsername > 0) {
+            return { error: "The Team member username already exist" };
+        }
+
         const createTeam = await TeamMember.create(req.body);
-        const { adminId } = req.body;
         await TeamSetting.create({
             adminId: createTeam.id, fields: userSettings
         });

@@ -9,10 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER(11)
       },
       usercomment: {
-        type: Sequelize.TEXT(500)
+        type: Sequelize.TEXT()
       },
       admincomment: {
-        type: Sequelize.TEXT(500)
+        type: Sequelize.TEXT()
       },
       ticketId: {
         type: Sequelize.INTEGER(11)

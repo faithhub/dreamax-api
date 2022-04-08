@@ -116,6 +116,41 @@ export default class {
       return { error: "No team member found for this id" };
     }
 
+    const assignedToTickets = await Ticket.count({
+      where: {
+        id: id,
+        deleted: 0,
+      },
+    });
+    const closedTickets = await Ticket.count({
+      where: {
+        assignedTo: adminId,
+        status: "closed",
+        deleted: 0,
+      },
+    });
+    const openTickets = await Ticket.count({
+      where: {
+        assignedTo: adminId,
+        status: "open",
+        deleted: 0,
+      },
+    });
+    const reolvedTickets = await Ticket.count({
+      where: {
+        assignedTo: adminId,
+        status: "resolved",
+        deleted: 0,
+      },
+    });
+    const unreolvedTickets = await Ticket.count({
+      where: {
+        assignedTo: adminId,
+        status: "unresolved",
+        deleted: 0,
+      },
+    });
+
     const teamMember = await TeamMember.findOne({
       where: {
         id,
@@ -156,12 +191,14 @@ export default class {
         deleted: 0,
       },
     });
+
     const totalFeedbackCount = await FeedBack.count({
       where: {
         adminId: adminId,
         deleted: 0,
       },
     });
+
     const averageRating = feedBackTotalsum / totalFeedbackCount;
 
     const sumAllTeamMemberTickets = await Ticket.findAll({
@@ -211,6 +248,13 @@ export default class {
       data: {
         averageRating,
         averageResponseTime: convertTime(averageResponseTime),
+        summary: {
+          assignedToTickets,
+          openTickets,
+          closedTickets,
+          reolvedTickets,
+          unreolvedTickets,
+        },
         teamMember,
       },
     };
@@ -262,6 +306,18 @@ export default class {
 
   static async delete(req) {
     const { id } = req.params;
+
+    const checkTeamMember = await TeamMember.findOne({
+      where: {
+        id,
+        deleted: 0,
+      },
+    });
+
+    if (!checkTeamMember) {
+      return { error: "No team member found for this id" };
+    }
+
     const teamMember = await TeamMember.update(
       { deleted: 1 },
       {
@@ -275,6 +331,17 @@ export default class {
 
   static async status(req) {
     let { id } = req.params;
+
+    const checkTeamMember = await TeamMember.findOne({
+      where: {
+        id,
+        deleted: 0,
+      },
+    });
+
+    if (!checkTeamMember) {
+      return { error: "No team member found for this id" };
+    }
 
     const { status } = {
       ...req.body,

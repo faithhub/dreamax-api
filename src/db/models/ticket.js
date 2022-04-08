@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM,
         values: ["open", "closed", "resolved", "unresolved"],
       },
+      storeId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       assignedTo: DataTypes.INTEGER,
       ticketNo: DataTypes.STRING,

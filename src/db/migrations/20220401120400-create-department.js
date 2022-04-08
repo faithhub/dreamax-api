@@ -1,51 +1,54 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Departments', {
+    await queryInterface.createTable("Departments", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER(11)
+        type: Sequelize.INTEGER(11),
+      },
+      storeID: {
+        type: Sequelize.INTEGER(11),
       },
       name: {
         type: Sequelize.STRING(100),
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING(100),
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       status: {
-        type:   Sequelize.ENUM,
-        values: ['active', 'not-active'],
+        type: Sequelize.ENUM,
+        values: ["active", "not-active"],
         allowNull: false,
-        defaultValue: 'active'
+        defaultValue: "active",
       },
-      labelColor:{
+      labelColor: {
         type: Sequelize.STRING(50),
       },
-      description:{
+      description: {
         type: Sequelize.STRING(200),
       },
       deleted: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Departments');
-  }
+    await queryInterface.dropTable("Departments");
+  },
 };

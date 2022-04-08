@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      storeID: {
+        type: Sequelize.INTEGER(11),
+      },
       adminType: {
         type: Sequelize.INTEGER(11),
         allowNull: false,

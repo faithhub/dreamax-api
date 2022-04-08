@@ -57,11 +57,13 @@ export default class {
 
     return {
       data: {
-        assignedToTickets,
-        openTickets,
-        closedTickets,
-        reolvedTickets,
-        unreolvedTickets,
+        summary: {
+          assignedToTickets,
+          openTickets,
+          closedTickets,
+          reolvedTickets,
+          unreolvedTickets,
+        },
         recentActivities,
       },
     };

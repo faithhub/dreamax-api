@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class TeamMember extends Model {
     /**
@@ -11,24 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Department, {foreignKey: 'departmentId'})
-      this.hasOne(models.TeamSetting, {foreignKey:"adminId"})
-      this.hasMany(models.FeedBack, {foreignKey:"adminId"})
-      this.hasMany(models.Ticket, {foreignKey:"assignedTo"})
+      this.belongsTo(models.Department, { foreignKey: "departmentId" });
+      this.hasOne(models.TeamSetting, { foreignKey: "adminId" });
+      this.hasMany(models.FeedBack, { foreignKey: "adminId" });
+      this.hasMany(models.Ticket, { foreignKey: "assignedTo" });
     }
   }
-  TeamMember.init({
-    userId: DataTypes.INTEGER,
-    adminType: DataTypes.INTEGER,
-    departmentId:DataTypes.INTEGER,
-    username: DataTypes.STRING,
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    status: DataTypes.INTEGER,
-    deleted: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'TeamMember',
-  });
+  TeamMember.init(
+    {
+      storeId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
+      adminType: DataTypes.INTEGER,
+      departmentId: DataTypes.INTEGER,
+      username: DataTypes.STRING,
+      firstName: DataTypes.STRING,
+      lastName: DataTypes.STRING,
+      status: {
+        type: DataTypes.ENUM,
+        values: ["avaialable", "away"],
+      },
+      deleted: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "TeamMember",
+    }
+  );
   return TeamMember;
 };

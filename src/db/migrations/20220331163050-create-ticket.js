@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER(11),
       },
+      storeID: {
+        type: Sequelize.INTEGER(11),
+      },
       comment: {
         type: Sequelize.STRING(200),
       },

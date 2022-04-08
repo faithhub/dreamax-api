@@ -76,16 +76,8 @@ export default class {
     if (error) {
       return { error: error };
     }
-    const { userId } = req.body;
+
     const { username } = req.body;
-
-    const checkUserId = await TeamMember.count({
-      where: { userId },
-    });
-
-    if (checkUserId > 0) {
-      return { error: "The Team member userId already exists" };
-    }
 
     const checkUsername = await TeamMember.count({
       where: { username },
@@ -112,6 +104,18 @@ export default class {
     const { id } = req.params;
     const adminId = id;
     const assignedTo = id;
+
+    const checkTeamMember = await TeamMember.findOne({
+      where: {
+        id,
+        deleted: 0,
+      },
+    });
+
+    if (!checkTeamMember) {
+      return { error: "No team member found for this id" };
+    }
+
     const teamMember = await TeamMember.findOne({
       where: {
         id,
@@ -189,16 +193,23 @@ export default class {
     ).toFixed(2);
 
     function convertTime(e) {
-      e = e * 60;
-      var h = Math.floor(e / 3600)
+      console.log(e);
+      e = e * 60 || 0;
+      console.log(e);
+      var h = 0;
+      var m = 0;
+      var s = 0;
+      console.log(h, m, s, e);
+      (h = Math.floor(e / 3600)
+        .toString()
+        .padStart(2, "0")),
+        (m = Math.floor((e % 3600) / 60)
           .toString()
-          .padStart(2, "0"),
-        m = Math.floor((e % 3600) / 60)
+          .padStart(2, "0")),
+        (s = Math.floor(e % 60)
           .toString()
-          .padStart(2, "0"),
-        s = Math.floor(e % 60)
-          .toString()
-          .padStart(2, "0");
+          .padStart(2, "0"));
+      console.log(h, m, s);
 
       return { hours: h, minutes: m, seconds: s };
       //return `${h}:${m}:${s}`;
@@ -230,11 +241,12 @@ export default class {
     const checkTeamMember = await TeamMember.findOne({
       where: {
         id,
+        deleted: 0,
       },
     });
 
     if (!checkTeamMember) {
-      return { error: "No team member fund for this id" };
+      return { error: "No team member found for this id" };
     }
 
     const checkUsername = await TeamMember.count({

@@ -3,6 +3,17 @@ import { TeamSetting, TeamMember } from "../db/models";
 export default class {
   static async get(req) {
     const { adminId } = req.params;
+
+    const getTeamMember = await TeamSetting.findOne({
+      where: {
+        adminId,
+        deleted: 0,
+      },
+    });
+
+    if (!getTeamMember) {
+      return { error: "No team member found for this id" };
+    }
     const teamMember = await TeamSetting.findOne({
       where: {
         adminId,
@@ -29,7 +40,7 @@ export default class {
     });
 
     if (!getTeamMember) {
-      return { error: "No team memner found for this id" };
+      return { error: "No team member found for this id" };
     }
 
     let newData = { ...getTeamMember.fields, ...req.body };

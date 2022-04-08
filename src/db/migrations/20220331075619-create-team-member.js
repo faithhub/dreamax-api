@@ -1,22 +1,21 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('TeamMembers', {
+    await queryInterface.createTable("TeamMembers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       adminType: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        defaultValue: 1
+        defaultValue: 1,
       },
       userId: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        unique: true
       },
       departmentId: {
         type: Sequelize.INTEGER(11),
@@ -25,41 +24,41 @@ module.exports = {
       username: {
         type: Sequelize.STRING(50),
         allowNull: false,
-        unique: true
+        unique: true,
       },
       firstName: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
       },
       lastName: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
       },
       avatar: {
         type: Sequelize.STRING(50),
       },
       status: {
-        type:   Sequelize.ENUM,
-        values: ['avaialable', 'away'],
+        type: Sequelize.ENUM,
+        values: ["avaialable", "away"],
         allowNull: false,
-        defaultValue: 'away'
+        defaultValue: "away",
       },
       deleted: {
         type: Sequelize.INTEGER(11),
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('TeamMembers');
-  }
+    await queryInterface.dropTable("TeamMembers");
+  },
 };

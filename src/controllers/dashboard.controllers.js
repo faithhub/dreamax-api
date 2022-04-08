@@ -1,9 +1,21 @@
-import { Ticket } from "../db/models";
+import { Ticket, TeamMember } from "../db/models";
 
 export default class {
   static async index(req) {
     const { adminId } = req.params;
     const id = { assignedTo: req.params.adminId };
+
+    const checkTeamMember = await TeamMember.findOne({
+      where: {
+        id: adminId,
+        deleted: 0,
+      },
+    });
+
+    if (!checkTeamMember) {
+      return { error: "No team member fund for this id" };
+    }
+
     const recentActivities = await Ticket.findAll({
       limit: 10,
       where: id,
@@ -42,7 +54,7 @@ export default class {
         deleted: 0,
       },
     });
-    console.log(adminId);
+
     return {
       data: {
         assignedToTickets,

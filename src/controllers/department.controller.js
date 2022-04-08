@@ -63,7 +63,7 @@ export default class {
     });
 
     if (!checkDepartment) {
-      return { error: "No department fund for this id" };
+      return { error: "No department found for this id" };
     }
     const department = await Department.findOne({
       where: {
@@ -104,7 +104,7 @@ export default class {
     });
 
     if (!checkDepartment) {
-      return { error: "No department fund for this id" };
+      return { error: "No department found for this id" };
     }
 
     const { name } = req.body;
@@ -154,7 +154,7 @@ export default class {
     });
 
     if (!checkDepartment) {
-      return { error: "No department fund for this id" };
+      return { error: "No department found for this id" };
     }
 
     const department = await Department.update(

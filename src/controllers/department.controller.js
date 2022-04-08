@@ -9,12 +9,20 @@ export default class {
       where: {
         deleted: 0,
       },
-      // attributes: {
-      //   include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
-      // },
-      // include: [{
-      //   model: TeamMember, attributes: []
-      // }]
+      attributes: {
+        include: [
+          [
+            Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")),
+            "teamMembers",
+          ],
+        ],
+      },
+      include: [
+        {
+          model: TeamMember,
+          attributes: [],
+        },
+      ],
     });
     return { data: departments };
   }

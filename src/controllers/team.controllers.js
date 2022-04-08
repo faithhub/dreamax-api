@@ -193,33 +193,19 @@ export default class {
     ).toFixed(2);
 
     function convertTime(e) {
-      console.log(e);
       e = e * 60 || 0;
-      console.log(e);
-      var h = 0;
-      var m = 0;
-      var s = 0;
-      console.log(h, m, s, e);
-      (h = Math.floor(e / 3600)
-        .toString()
-        .padStart(2, "0")),
-        (m = Math.floor((e % 3600) / 60)
+      var h = Math.floor(e / 3600)
           .toString()
-          .padStart(2, "0")),
-        (s = Math.floor(e % 60)
+          .padStart(2, "0"),
+        m = Math.floor((e % 3600) / 60)
           .toString()
-          .padStart(2, "0"));
-      console.log(h, m, s);
-
+          .padStart(2, "0"),
+        s = Math.floor(e % 60)
+          .toString()
+          .padStart(2, "0");
       return { hours: h, minutes: m, seconds: s };
       //return `${h}:${m}:${s}`;
     }
-
-    // console.log(
-    //   countAllTeamMemberTickets,
-    //   sumAllTeamMemberTickets[0].respondTime,
-    //   convertTime(averageResponseTime)
-    // );
 
     return {
       data: {

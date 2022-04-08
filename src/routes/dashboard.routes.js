@@ -5,11 +5,12 @@ import DashboardController from "../controllers/dashboard.controllers";
 const router = Router();
 const module = "dashboard";
 
-
-router.get('/:adminId',
+router.get(
+  "/:adminId",
   generalMiddleware.controllerWrapper(
     DashboardController.index,
-    "Error fetching teams")
+    "Error fetching teams"
+  )
 );
 
 export { module, router };

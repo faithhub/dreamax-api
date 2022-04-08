@@ -5,7 +5,7 @@ const Op = Sequelize.Op;
 
 export default class {
   static async index() {
-    const departments = await Department.findAll({
+    const getAllDepartments = await Department.findAll({
       where: {
         deleted: 0,
       },
@@ -24,7 +24,8 @@ export default class {
         },
       ],
     });
-    return { data: departments };
+
+    return { data: getAllDepartments };
   }
 
   static async create(req) {

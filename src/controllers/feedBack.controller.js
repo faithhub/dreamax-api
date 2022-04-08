@@ -1,4 +1,5 @@
 import { FeedBack } from "../db/models";
+import { validateSchema } from "../validations/feedback.validation";
 
 export default class {
   static async index(req) {
@@ -11,6 +12,10 @@ export default class {
   }
 
   static async create(req) {
+    const { error } = validateSchema.validate(req.body);
+    if (error) {
+      return { error: error.details[0].message };
+    }
     const feedbackObject = {
       ...req.body,
     };

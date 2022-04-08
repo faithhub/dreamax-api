@@ -22,6 +22,14 @@ export default class {
         deleted: 0,
       },
     });
+
+    let feedback = await FeedBack.findAll({
+      where: {
+        deleted: 0
+      }
+    });
+
+
     let collateTeamMember;
 
     collateTeamMember = teamMembers.map((el) => {
@@ -31,6 +39,12 @@ export default class {
       let closed;
       let resolved;
       let unreolved;
+      let ratings;
+      let filteredFeedback;
+      let avgRating;
+      let sum;
+      let teamMemberObject = {};
+
 
       assigned = tickets.filter((element) => element.assignedTo == id);
       open = tickets.filter(
@@ -46,7 +60,14 @@ export default class {
         (element) => element.assignedTo == id && element.status == "unresolved"
       );
 
-      let teamMemberObject = {};
+      filteredFeedback = feedback.filter((element) => element.adminId == id)
+
+      ratings = filteredFeedback.map((el) => {
+        return el.rating;
+      });
+      sum = ratings.reduce((a, b) => a + b, 0);
+      avgRating = (sum / ratings.length) || 0;
+
       teamMemberObject["assigned"] = assigned.length;
       teamMemberObject["open"] = open.length;
       teamMemberObject["close"] = closed.length;
@@ -54,6 +75,9 @@ export default class {
       teamMemberObject["unresolved"] = unreolved.length;
       teamMemberObject["department"] = el.department;
       teamMemberObject["name"] = el.firstName + "" + el.lastName;
+      teamMemberObject["id"] = el.id;
+      teamMemberObject["status"] = el.status;
+      teamMemberObject["rating"] = avgRating;
 
       return teamMemberObject;
     });

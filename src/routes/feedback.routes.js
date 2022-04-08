@@ -30,6 +30,14 @@ router.get(
   )
 );
 
+router.put(
+  "/:id",
+  generalMiddleware.controllerWrapper(
+    FeedBackController.edit,
+    "Error Fetching feedbacks"
+  )
+);
+
 router.get(
   "/ticket/:ticketId",
   generalMiddleware.controllerWrapper(

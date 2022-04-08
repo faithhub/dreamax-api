@@ -4,9 +4,9 @@ import { Server } from "socket.io";
 import Websockets from "./utils/websockets";
 
 function boostrap() {
-  const port = process.env.PORT || 8052;
+    const port = process.env.PORT || 8052;
 
-  const server = http.createServer(app);
+    const server = http.createServer(app);
 
   const io = new Server(server);
 

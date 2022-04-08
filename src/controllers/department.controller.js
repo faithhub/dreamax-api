@@ -30,7 +30,7 @@ export default class {
   static async create(req) {
     const { error } = validateSchema.validate(req.body);
     if (error) {
-      return { error: error };
+      return { error: error.details[0].message };
     }
 
     const { name } = req.body;

@@ -43,4 +43,12 @@ router.delete(
   )
 );
 
+router.put(
+  '/status/:id',
+  generalMiddleware.controllerWrapper(
+      TeamController.status,
+      "Error updating status"
+  )
+);
+
 export { module, router };

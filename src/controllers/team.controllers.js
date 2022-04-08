@@ -122,6 +122,7 @@ export default class {
         deleted: 0,
       },
     });
+
     const closedTickets = await Ticket.count({
       where: {
         assignedTo: adminId,
@@ -129,6 +130,7 @@ export default class {
         deleted: 0,
       },
     });
+
     const openTickets = await Ticket.count({
       where: {
         assignedTo: adminId,
@@ -136,6 +138,7 @@ export default class {
         deleted: 0,
       },
     });
+
     const reolvedTickets = await Ticket.count({
       where: {
         assignedTo: adminId,
@@ -143,6 +146,7 @@ export default class {
         deleted: 0,
       },
     });
+
     const unreolvedTickets = await Ticket.count({
       where: {
         assignedTo: adminId,

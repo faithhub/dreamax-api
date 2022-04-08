@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    status: DataTypes.INTEGER,
+    status: {
+      type:   DataTypes.ENUM,
+      values: ['avaialable', 'away'],
+    },
     deleted: DataTypes.INTEGER
   }, {
     sequelize,

@@ -13,58 +13,42 @@ export default class {
                 deleted: 0
             }
         });
-        let collateTeamMember = [];
+        const tickets = await Ticket.findAll({
+            where: {
+                deleted: 0
+            }
+        })
+        let collateTeamMember;
 
-        teamMembers.forEach(async el => {
+
+       collateTeamMember =  teamMembers.map(el => {
             const { id } = el;
             let assigned;
             let open;
             let closed;
-            let reolved;
+            let resolved;
             let unreolved;
 
-            assigned = await Ticket.count({
-                where: id,
-            })
-            open = await Ticket.count({
-                where: {
-                    deleted: 0,
-                    assignedTo: el.id,
-                    status: 1
-                },
-            });
-            closed = await Ticket.count({
-                where: {
-                    deleted: 0,
-                    assignedTo: el.id,
-                    status: 0
-                },
-            });
-            reolved = await Ticket.count({
-                where: {
-                    deleted: 0,
-                    assignedTo: el.id,
-                    status: 2
-                },
-            });
-            unreolved = await Ticket.count({
-                where: {
-                    deleted: 0,
-                    assignedTo: el.id,
-                    status: 3
-                },
-            });
+            assigned = tickets.filter((element) => element.assignedTo == id )
+            open = tickets.filter((element) => element.assignedTo == id && element.status == 'opened')
+            closed = tickets.filter((element) => element.assignedTo == id && element.status == 'closed')
+            resolved = tickets.filter((element) => element.assignedTo == id && element.status == 'resolved')
+            unreolved = tickets.filter((element) => element.assignedTo == id && element.status == 'unresolved')
 
             let teamMemberObject = {};
-            teamMemberObject["assigned"] = assigned;
-            teamMemberObject["open"] = open;
+            teamMemberObject["assigned"] = assigned.length;
+            teamMemberObject["open"] = open.length;
+            teamMemberObject["close"] = closed.length;
+            teamMemberObject["resolved"] = resolved.length;
+            teamMemberObject["unresolved"] = unreolved.length;
+            teamMemberObject["department"] = el.department;
+            teamMemberObject["name"] = el.firstName + '' + el.lastName;
 
-            console.log(teamMemberObject)
+            return teamMemberObject;
 
-            collateTeamMember.push(teamMemberObject)
         });
 
-        return { data: { collateTeamMember, teamMembers } }
+        return { data: collateTeamMember }
 
     };
 

@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Ticket extends Model {
     /**
@@ -11,30 +9,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Room, {as: 'ChatRoom', foreignKey: 'ticketId'})
-      this.hasOne(models.FeedBack, {as: 'FeedBack', foreignKey: 'ticketId'})
+      // this.belongsTo(models.Room, {as: 'ChatRoom', foreignKey: 'ticketId'})
+      // this.hasOne(models.FeedBack, {as: 'FeedBack', foreignKey: 'ticketId'})
     }
   }
-  Ticket.init({
-    comment: DataTypes.STRING,
-    department: DataTypes.INTEGER,
-    piority:{
-      type:   DataTypes.ENUM,
-        values: ['high', 'medium', 'low']
+  Ticket.init(
+    {
+      comment: DataTypes.STRING,
+      department: DataTypes.INTEGER,
+      piority: {
+        type: DataTypes.ENUM,
+        values: ["high", "medium", "low"],
+      },
+      status: {
+        type: DataTypes.ENUM,
+        values: ["open", "closed", "resolved", "unresolved"],
+      },
+      userId: DataTypes.INTEGER,
+      assignedTo: DataTypes.INTEGER,
+      ticketNo: DataTypes.STRING,
+      resolvedTime: DataTypes.FLOAT,
+      respondTime: DataTypes.INTEGER,
+      deleted: DataTypes.INTEGER,
     },
-    status: {
-      type:   DataTypes.ENUM,
-      values: ['open', 'closed', 'resolved', 'unresolved'],
-    },
-    userId: DataTypes.INTEGER,
-    assignedTo: DataTypes.INTEGER,
-    ticketNo: DataTypes.STRING,
-    resolvedTime: DataTypes.DATE,
-    respondTime: DataTypes.INTEGER,
-    deleted: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Ticket',
-  });
+    {
+      sequelize,
+      modelName: "Ticket",
+    }
+  );
   return Ticket;
 };

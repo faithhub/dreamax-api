@@ -5,11 +5,12 @@ import TeamController from "../controllers/team.controllers";
 const router = Router();
 const module = "team";
 
-
-router.get('/',
+router.get(
+  "/",
   generalMiddleware.controllerWrapper(
     TeamController.index,
-    "Error fetching teams")
+    "Error fetching teams"
+  )
 );
 
 router.post(
@@ -20,34 +21,31 @@ router.post(
   )
 );
 router.get(
-  '/:id',
-  generalMiddleware.controllerWrapper(
-    TeamController.get,
-      "Error Fetching team"
-  )
+  "/:id",
+  generalMiddleware.controllerWrapper(TeamController.get, "Error Fetching team")
 );
 
 router.put(
-  '/:id',
+  "/:id",
   generalMiddleware.controllerWrapper(
-      TeamController.edit,
-      "Error Updating team"
+    TeamController.edit,
+    "Error Updating team"
   )
 );
 
 router.delete(
-  '/:id',
+  "/:id",
   generalMiddleware.controllerWrapper(
-      TeamController.delete,
-      "Error Deleting team"
+    TeamController.delete,
+    "Error Deleting team"
   )
 );
 
 router.put(
-  '/status/:id',
+  "/status/:id",
   generalMiddleware.controllerWrapper(
-      TeamController.status,
-      "Error updating status"
+    TeamController.status,
+    "Error updating status"
   )
 );
 

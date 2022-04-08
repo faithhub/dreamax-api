@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class FeedBack extends Model {
     /**
@@ -11,20 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Ticket, {as: 'Ticket', foreignKey: 'ticketId'})
-      this.belongsTo(models.TeamMember, {as: 'Admin', foreignKey: 'adminId'})
+      this.belongsTo(models.Ticket, { as: "Ticket", foreignKey: "ticketId" });
+      this.belongsTo(models.TeamMember, { as: "Admin", foreignKey: "adminId" });
     }
   }
-  FeedBack.init({
-    usercomment: DataTypes.TEXT,
-    admincomment: DataTypes.TEXT,
-    ticketId: DataTypes.INTEGER,
-    adminId: DataTypes.INTEGER,
-    rating: DataTypes.INTEGER,
-    deleted: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'FeedBack',
-  });
+  FeedBack.init(
+    {
+      usercomment: DataTypes.TEXT,
+      admincomment: DataTypes.TEXT,
+      ticketId: DataTypes.INTEGER,
+      adminId: DataTypes.INTEGER,
+      rating: DataTypes.INTEGER,
+      deleted: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "FeedBack",
+    }
+  );
   return FeedBack;
 };

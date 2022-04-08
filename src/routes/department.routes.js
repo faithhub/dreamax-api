@@ -5,11 +5,12 @@ import DepartmentController from "../controllers/department.controller";
 const router = Router();
 const module = "department";
 
-
-router.get('/',
+router.get(
+  "/",
   generalMiddleware.controllerWrapper(
     DepartmentController.index,
-    "Error fetching departments")
+    "Error fetching departments"
+  )
 );
 
 router.post(
@@ -21,26 +22,26 @@ router.post(
 );
 
 router.get(
-  '/:id',
+  "/:id",
   generalMiddleware.controllerWrapper(
     DepartmentController.get,
-      "Error Fetching department"
+    "Error Fetching department"
   )
 );
 
 router.put(
-  '/:id',
+  "/:id",
   generalMiddleware.controllerWrapper(
-      DepartmentController.edit,
-      "Error Updating department"
+    DepartmentController.edit,
+    "Error Updating department"
   )
 );
 
 router.delete(
-  '/:id',
+  "/:id",
   generalMiddleware.controllerWrapper(
-      DepartmentController.delete,
-      "Error Deleting department"
+    DepartmentController.delete,
+    "Error Deleting department"
   )
 );
 

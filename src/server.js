@@ -1,25 +1,22 @@
-import http from 'http'
-import app from './app'
-import { Server } from 'socket.io'
-import Websockets from './utils/websockets';
-
+import http from "http";
+import app from "./app";
+import { Server } from "socket.io";
+import Websockets from "./utils/websockets";
 
 function boostrap() {
-    const port = process.env.PORT || 5000;
+  const port = process.env.PORT || 8052;
 
-    const server = http.createServer(app);
+  const server = http.createServer(app);
 
-    const io = new Server(server);
+  const io = new Server(server);
 
-    io.on('connection', Websockets.connection);
+  io.on("connection", Websockets.connection);
 
-    server.listen(port);
+  server.listen(port);
 
-    server.on("listening", () => {
-        console.log(`Listening on port:: http://localhost:${port}/`)
-      });
-
-
+  server.on("listening", () => {
+    console.log(`Listening on port:: http://localhost:${port}/`);
+  });
 }
 
 boostrap();

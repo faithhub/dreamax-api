@@ -4,11 +4,10 @@ import { validateSchema } from "../validations/department.validations";
 const Op = Sequelize.Op;
 
 export default class {
-
   static async index() {
     const departments = await Department.findAll({
       where: {
-        deleted: 0
+        deleted: 0,
       },
       // attributes: {
       //   include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
@@ -17,11 +16,10 @@ export default class {
       //   model: TeamMember, attributes: []
       // }]
     });
-    return { data: departments }
-  };
+    return { data: departments };
+  }
 
   static async create(req) {
-
     const { error } = validateSchema.validate(req.body);
     if (error) {
       return { error: error };
@@ -31,15 +29,15 @@ export default class {
     const { email } = req.body;
 
     const checkName = await Department.count({
-      where: { name }
-    })
+      where: { name },
+    });
 
     if (checkName > 0) {
       return { error: "Department name already exists" };
     }
 
     const checkEmail = await Department.count({
-      where: { email }
+      where: { email },
     });
 
     if (checkEmail > 0) {
@@ -53,33 +51,62 @@ export default class {
     }
 
     return { data: createDepartment };
-  };
+  }
 
   static async get(req) {
     const { id } = req.params;
+
+    const checkDepartment = await Department.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!checkDepartment) {
+      return { error: "No department fund for this id" };
+    }
     const department = await Department.findOne({
       where: {
         id,
-        deleted: 0
-      }, attributes: {
-        include: [[Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")), "teamMembers"]]
+        deleted: 0,
       },
-      include: [{
-        model: TeamMember, attributes: []
-      }]
+      attributes: {
+        include: [
+          [
+            Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")),
+            "teamMembers",
+          ],
+        ],
+      },
+      include: [
+        {
+          model: TeamMember,
+          attributes: [],
+        },
+      ],
     });
 
     return { data: department };
-  };
+  }
 
   static async edit(req) {
-
     const { error } = validateSchema.validate(req.body);
     if (error) {
       return { error: error };
     }
+    const { id } = req.params;
 
-    var { id } = req.params;
+    const checkDepartment = await Department.findOne({
+      where: {
+        id,
+        deleted: 0,
+      },
+    });
+
+    if (!checkDepartment) {
+      return { error: "No department fund for this id" };
+    }
+
     const { name } = req.body;
     const { email } = req.body;
     const updateBody = { ...req.body };
@@ -87,44 +114,58 @@ export default class {
     const checkName = await Department.count({
       where: {
         name,
-        id: { [Op.notIn]: [id] }
-      }
+        id: { [Op.notIn]: [id] },
+      },
     });
 
-    if(checkName > 0){
+    if (checkName > 0) {
       return { error: "Department name already exists" };
     }
 
     const checkEmail = await Department.count({
       where: {
         email,
-        id: { [Op.notIn]: [id] }
-      }
+        id: { [Op.notIn]: [id] },
+      },
     });
 
-    if(checkEmail > 0){
+    if (checkEmail > 0) {
       return { error: "Department email already exists" };
     }
 
     const department = await Department.update(updateBody, {
       where: {
         id,
-        deleted: 0
+        deleted: 0,
       },
     });
 
     return { data: department };
-  };
+  }
 
   static async delete(req) {
     const { id } = req.params;
-    const department = await Department.update({ deleted: 1 }, {
+
+    const checkDepartment = await Department.findOne({
       where: {
-        id
+        id,
+        deleted: 0,
       },
     });
 
-    return { data: department };
-  };
+    if (!checkDepartment) {
+      return { error: "No department fund for this id" };
+    }
 
-};
+    const department = await Department.update(
+      { deleted: 1 },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    return { data: department };
+  }
+}

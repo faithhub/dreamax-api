@@ -100,7 +100,7 @@ export default class {
   static async edit(req) {
     const { error } = validateSchema.validate(req.body);
     if (error) {
-      return { error: error };
+      return { error: error.details[0].message };
     }
     const { id } = req.params;
 

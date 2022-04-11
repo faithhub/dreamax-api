@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasOne(models.Room, {as: 'ChatRoom', foreignKey: 'ticketId'})
-      this.hasOne(models.FeedBack, {as: 'FeedBack', foreignKey: 'ticketId'})
+      this.hasOne(models.Room, { as: "ChatRoom", foreignKey: "ticketId" });
+      this.hasOne(models.FeedBack, { as: "FeedBack", foreignKey: "ticketId" });
     }
   }
   Ticket.init(

@@ -25,10 +25,15 @@ export default class {
 
     let feedback = await FeedBack.findAll({
       where: {
-        deleted: 0
-      }
+        deleted: 0,
+      },
     });
 
+    let departments = await Department.findAll({
+      where: {
+        deleted: 0,
+      },
+    });
 
     let collateTeamMember;
 
@@ -44,7 +49,7 @@ export default class {
       let avgRating;
       let sum;
       let teamMemberObject = {};
-
+      let department;
 
       assigned = tickets.filter((element) => element.assignedTo == id);
       open = tickets.filter(
@@ -60,13 +65,17 @@ export default class {
         (element) => element.assignedTo == id && element.status == "unresolved"
       );
 
-      filteredFeedback = feedback.filter((element) => element.adminId == id)
+      filteredFeedback = feedback.filter((element) => element.adminId == id);
 
       ratings = filteredFeedback.map((el) => {
         return el.rating;
       });
       sum = ratings.reduce((a, b) => a + b, 0);
-      avgRating = (sum / ratings.length) || 0;
+      avgRating = sum / ratings.length || 0;
+
+      department = departments.filter(
+        (element) => element.id == el.departmentId
+      );
 
       teamMemberObject["assigned"] = assigned.length;
       teamMemberObject["open"] = open.length;
@@ -78,6 +87,9 @@ export default class {
       teamMemberObject["id"] = el.id;
       teamMemberObject["status"] = el.status;
       teamMemberObject["rating"] = avgRating;
+      teamMemberObject["departmentId"] = department[0].id;
+      teamMemberObject["departmentName"] = department[0].name;
+      teamMemberObject["departmentLabelColor"] = department[0].labelColor;
 
       return teamMemberObject;
     });
@@ -332,6 +344,7 @@ export default class {
       },
     });
 
+    //Check if team member exists
     if (!checkTeamMember) {
       return { error: "No team member found for this id" };
     }
@@ -340,6 +353,7 @@ export default class {
       ...req.body,
     };
 
+    //Update Status
     const teamMember = await TeamMember.update(status, {
       where: {
         id,

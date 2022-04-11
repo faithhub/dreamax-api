@@ -5,27 +5,42 @@ const Op = Sequelize.Op;
 
 export default class {
   static async index() {
-    const getAllDepartments = await Department.findAll({
+    let departments = await Department.findAll({
       where: {
         deleted: 0,
       },
-      attributes: {
-        include: [
-          [
-            Sequelize.fn("COUNT", Sequelize.col("TeamMember.departmentId")),
-            "teamMembers",
-          ],
-        ],
+    });
+    const teamMembers = await TeamMember.findAll({
+      where: {
+        deleted: 0,
       },
-      include: [
-        {
-          model: TeamMember,
-          attributes: [],
-        },
-      ],
     });
 
-    return { data: getAllDepartments };
+    let collateTeamMember;
+
+    collateTeamMember = departments.map((el) => {
+      const { id } = el;
+      let teamMemberObject = {};
+      let teamMember;
+
+      teamMember = teamMembers.filter((element) => element.departmentId == id);
+
+      teamMemberObject["id"] = el.id;
+      teamMemberObject["storeId"] = el.storeId;
+      teamMemberObject["name"] = el.name;
+      teamMemberObject["email"] = el.email;
+      teamMemberObject["status"] = el.status;
+      teamMemberObject["labelColor"] = el.labelColor;
+      teamMemberObject["description"] = el.description;
+      teamMemberObject["deleted"] = el.deleted;
+      teamMemberObject["createdAt"] = el.createdAt;
+      teamMemberObject["updatedAt"] = el.updatedAt;
+      teamMemberObject["teamMembers"] = teamMember.length;
+
+      return teamMemberObject;
+    });
+
+    return { data: collateTeamMember };
   }
 
   static async create(req) {

@@ -17,6 +17,11 @@ function boostrap() {
   server.on("listening", () => {
     console.log(`Listening on port:: http://localhost:${port}/`);
   });
+//   process.on('SIGINT', function() {
+//     gracefulShutdown((err) => {
+//       process.exit(err ? 1 : 0)
+//     });
+//  })
 }
 
 boostrap();

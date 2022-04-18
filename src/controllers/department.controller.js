@@ -25,7 +25,7 @@ export default class {
       ],
     });
 
-    return { data: getAllDepartments };
+    return { department: getAllDepartments };
   }
 
   static async create(req) {
@@ -59,21 +59,21 @@ export default class {
       return { error: "An error occur when creating a new department" };
     }
 
-    return { data: createDepartment };
+    return { department: createDepartment };
   }
 
   static async get(req) {
     const { id } = req.params;
 
-    const checkDepartment = await Department.findOne({
-      where: {
-        id,
-      },
-    });
+    // const checkDepartment = await Department.findOne({
+    //   where: {
+    //     id,
+    //   },
+    // });
 
-    if (!checkDepartment) {
-      return { error: "No department found for this id" };
-    }
+    // if (!checkDepartment) {
+    //   return { error: "No department found for this id" };
+    // }
     const department = await Department.findOne({
       where: {
         id,
@@ -95,7 +95,7 @@ export default class {
       ],
     });
 
-    return { data: department };
+    return { department: department };
   }
 
   static async edit(req) {
@@ -149,7 +149,7 @@ export default class {
       },
     });
 
-    return { data: department };
+    return { department: department };
   }
 
   static async delete(req) {
@@ -175,6 +175,6 @@ export default class {
       }
     );
 
-    return { data: department };
+    return { department: department };
   }
 }

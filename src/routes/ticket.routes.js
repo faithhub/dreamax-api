@@ -1,6 +1,7 @@
 import { Router } from "express";
 import generalMiddleware from "../middleware/general.middleware";
 import TicketController from "../controllers/ticket.controller";
+import ticketMiddleware from "../middleware/ticket.middleware"
 
 const router = Router();
 const module = "ticket";

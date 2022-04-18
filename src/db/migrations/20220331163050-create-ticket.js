@@ -26,8 +26,8 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM,
-        values: ["opened", "closed", "resolved", "unresolved"],
-        defaultValue: "opened",
+        values: ["open", "closed", "resolved", "unresolved"],
+        defaultValue: "open",
       },
       resolvedTime: {
         type: Sequelize.INTEGER(11),
